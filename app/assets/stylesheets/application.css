@@ -681,47 +681,66 @@ header {
    記録ページ
    ======================================== */
 
-/* サマリー */
-.hist-summary {
+/* ヒーロー：取り戻した人生 */
+.hist-hero {
   text-align: center;
-  padding: 20px 0 24px;
+  padding: 28px 0 24px;
 }
 
-.hist-since {
-  font-size: 0.75rem;
+.hist-hero-label {
+  font-size: 0.7rem;
+  font-weight: 600;
   color: var(--ink-3);
-  margin-bottom: 16px;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
 }
 
-.hist-pair {
-  display: flex;
+.hist-hero-value {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.04em;
+  line-height: 1;
   margin-bottom: 12px;
 }
 
-.hist-pair-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.hist-pair-num {
-  font-size: 1.3rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
-
-.hist-pair-num--accent { color: var(--accent); }
-
-.hist-pair-sub {
-  font-size: 0.68rem;
-  color: var(--ink-3);
-}
-
-.hist-meta {
+.hist-hero-meta {
   font-size: 0.72rem;
   color: var(--ink-3);
+}
+
+/* これだけの人生でできること */
+.hist-equiv {
+  padding: 0 0 24px;
+}
+
+.hist-equiv-intro {
+  font-size: 0.72rem;
+  color: var(--ink-3);
+  margin-bottom: 10px;
+}
+
+.hist-equiv-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.hist-equiv-row:last-child { border-bottom: none; }
+
+.hist-equiv-text {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.hist-equiv-count {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.01em;
 }
 
 /* セクション */
@@ -756,11 +775,10 @@ header {
   color: var(--ink);
 }
 
-.hist-month-amount {
-  font-size: 0.85rem;
-  font-weight: 700;
+.hist-month-time {
+  font-size: 0.82rem;
+  font-weight: 600;
   color: var(--ink);
-  letter-spacing: -0.01em;
 }
 
 .hist-bar-track {
@@ -778,7 +796,7 @@ header {
   min-width: 4px;
 }
 
-.hist-month-time {
+.hist-month-amount {
   font-size: 0.68rem;
   color: var(--ink-3);
 }
@@ -799,23 +817,29 @@ header {
 .hist-row:last-child { border-bottom: none; }
 
 .hist-row-date {
-  width: 48px;
-  font-size: 0.78rem;
+  width: 40px;
+  font-size: 0.75rem;
   color: var(--ink-3);
   flex-shrink: 0;
 }
 
 .hist-row-amount {
-  flex: 1;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.hist-row-arrow {
+  font-size: 0.72rem;
+  color: var(--ink-3);
+  margin: 0 8px;
 }
 
 .hist-row-time {
-  font-size: 0.75rem;
-  color: var(--ink-3);
-  text-align: right;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-left: auto;
 }
 
 /* ========================================
