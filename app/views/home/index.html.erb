@@ -1,8 +1,7 @@
 <% if user_signed_in? %>
 
-  <!-- 入力 -->
   <div class="record">
-    <p class="record-title">いくら節約しましたか？</p>
+    <p class="record-q">いくら節約しましたか？</p>
     <%= form_with url: new_income_path, method: :post, local: true do |f| %>
       <div class="record-input-wrap">
         <span class="record-yen">¥</span>
@@ -12,70 +11,67 @@
     <% end %>
   </div>
 
-  <!-- 今日 -->
+  <hr class="sep">
+
   <div class="today">
-    <div class="today-col">
-      <span class="today-value">¥<%= number_with_delimiter(@today_income) %></span>
-      <span class="today-label">今日の節約収入</span>
+    <div class="today-item">
+      <span class="today-num">¥<%= number_with_delimiter(@today_income) %></span>
+      <span class="today-sub">今日の節約収入</span>
     </div>
-    <div class="today-col">
-      <span class="today-value"><%= @virtual_work_time %></span>
-      <span class="today-label">取り戻した時間</span>
+    <div class="today-item">
+      <span class="today-num"><%= @virtual_work_time %></span>
+      <span class="today-sub">取り戻した時間</span>
     </div>
   </div>
 
-  <!-- 取り戻した人生 -->
   <% if @lifetime_minutes > 0 %>
-    <div class="life">
-      <span class="life-label">取り戻した人生</span>
-      <span class="life-value"><%= @lifetime_display %></span>
-      <div class="life-meta">
-        <span>累計 ¥<%= number_with_delimiter(@total_income) %></span>
-        <% if @annual_projection.present? %>
-          <span class="life-meta-sep">·</span>
-          <span>年末まで <strong><%= @annual_projection %></strong> ペース</span>
-        <% end %>
-      </div>
-    </div>
-  <% else %>
-    <div class="life">
-      <span class="life-label">累計の節約収入</span>
-      <span class="life-value">¥<%= number_with_delimiter(@total_income) %></span>
-    </div>
-  <% end %>
+    <hr class="sep">
 
-  <!-- AI提案（オプトイン） -->
-  <% if @total_minutes > 0 %>
-    <%= turbo_frame_tag "ai_suggestion" do %>
-      <%= button_to "この時間の使い方をAIに聞く →", suggest_path,
-            class: "ai-link",
-            data: { turbo_frame: "ai_suggestion" } %>
+    <div class="life">
+      <p class="life-above">取り戻した人生</p>
+      <p class="life-num"><%= @lifetime_display %></p>
+      <p class="life-below">
+        累計 ¥<%= number_with_delimiter(@total_income) %><% if @annual_projection.present? %> · 年末まで<%= @annual_projection %>ペース<% end %>
+      </p>
+    </div>
+
+    <% if @total_minutes > 0 %>
+      <%= turbo_frame_tag "ai_suggestion" do %>
+        <%= button_to "この時間の使い方をAIに聞く →", suggest_path,
+              class: "ai-text-link",
+              data: { turbo_frame: "ai_suggestion" } %>
+      <% end %>
     <% end %>
+  <% else %>
+    <hr class="sep">
+
+    <div class="life">
+      <p class="life-above">累計の節約収入</p>
+      <p class="life-num life-num--plain">¥<%= number_with_delimiter(@total_income) %></p>
+    </div>
   <% end %>
 
 <% else %>
 
-  <!-- ヒーロー -->
   <div class="hero">
-    <h2 class="hero-headline">
-      節約は、<br><span class="hero-accent">収入</span>だ。
-    </h2>
-    <p class="hero-sub">
-      節約した金額を「収入」と「取り戻した時間」に変換。<br>
+    <p class="hero-kicker">節約は、</p>
+    <h2 class="hero-big">収入だ。</h2>
+    <p class="hero-body">
+      節約した金額を「収入」と「取り戻した時間」に変換。
       毎日の小さな節約が、どれだけの価値か実感できます。
     </p>
 
-    <div class="hero-example">
-      <p>コンビニ弁当を自炊に変えて ¥500 節約</p>
-      <p class="hero-example-result">→ ¥500 の収入、25分の自由を取り戻した</p>
+    <div class="hero-ex">
+      <p class="hero-ex-line">コンビニ弁当を自炊に変えて ¥500 節約</p>
+      <p class="hero-ex-line hero-ex-strong">→ ¥500 の収入、25分の自由を取り戻した</p>
     </div>
 
     <%= link_to "無料ではじめる", new_user_registration_path, class: "hero-cta" %>
 
-    <ul class="hero-list">
+    <ul class="hero-notes">
       <li>節約金額をサッと記録</li>
       <li>あなたの時給で「時間」に変換</li>
-      <li>累計の節約収入を実感</li>
+      <li>取り戻した人生を可視化</li>
     </ul>
   </div>
 
