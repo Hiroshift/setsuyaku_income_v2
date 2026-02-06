@@ -39,15 +39,28 @@ class HistoryController < ApplicationController
       }
     end
 
-    # --- 最近の記録（直近30件） ---
-    @recent = all_recordings.order(recorded_date: :desc).limit(30).map do |r|
+    # --- 最近の記録（直近30件、IDを含む） ---
+    @recent = all_recordings.order(recorded_date: :desc, created_at: :desc).limit(30).map do |r|
       minutes = calculate_minutes(r.amount)
       {
+        id: r.id,
         date: r.recorded_date,
         amount: r.amount,
         time: format_time(minutes)
       }
     end
+  end
+
+  def destroy
+    recording = current_user.recordings.find_by(id: params[:id])
+    if recording
+      amount = recording.amount
+      recording.destroy
+      flash[:notice] = "¥#{amount.to_fs(:delimited)}の記録を取り消しました"
+    else
+      flash[:alert] = "記録が見つかりませんでした"
+    end
+    redirect_to history_path
   end
 
   private
@@ -72,6 +85,6 @@ class HistoryController < ApplicationController
       results << { text: eq[:text], count: count, per: eq[:per] }
     end
 
-    results.last(3) # 最も大きいスケールの3つだけ表示
+    results.last(3)
   end
 end

@@ -51,9 +51,16 @@
       <% @recent.each do |r| %>
         <div class="hist-row">
           <span class="hist-row-date"><%= r[:date].strftime("%-m/%-d") %></span>
-          <span class="hist-row-amount">¥<%= number_with_delimiter(r[:amount]) %></span>
-          <span class="hist-row-arrow">→</span>
-          <span class="hist-row-time"><%= r[:time] %></span>
+          <span class="hist-row-body">
+            <span class="hist-row-amount">¥<%= number_with_delimiter(r[:amount]) %></span>
+            <span class="hist-row-arrow">→</span>
+            <span class="hist-row-time"><%= r[:time] %></span>
+          </span>
+          <%= button_to recording_path(r[:id]), method: :delete,
+                class: "hist-row-del",
+                data: { turbo_confirm: "¥#{number_with_delimiter(r[:amount])}の記録を取り消しますか？" } do %>
+            ×
+          <% end %>
         </div>
       <% end %>
     </div>

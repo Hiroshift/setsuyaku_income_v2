@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   post "new_income", to: "home#create"
   post "suggest", to: "home#suggest"
   get "history", to: "history#index"
+  delete "recordings/:id", to: "history#destroy", as: :recording
 end

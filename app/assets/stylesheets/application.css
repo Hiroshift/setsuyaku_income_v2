@@ -649,7 +649,7 @@ header {
 
 .modal-btns .btn-cancel {
   width: 100%;
-  padding: 12px;
+    padding: 12px;
   border-radius: var(--radius);
   font-size: 0.9rem;
   font-weight: 600;
@@ -663,7 +663,7 @@ header {
 
 .modal-btns .btn-destroy {
   width: 100%;
-  padding: 12px;
+    padding: 12px;
   border-radius: var(--radius);
   font-size: 0.9rem;
   font-weight: 600;
@@ -809,9 +809,10 @@ header {
 
 .hist-row {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid var(--border);
+  gap: 0;
 }
 
 .hist-row:last-child { border-bottom: none; }
@@ -821,6 +822,13 @@ header {
   font-size: 0.75rem;
   color: var(--ink-3);
   flex-shrink: 0;
+}
+
+.hist-row-body {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
 }
 
 .hist-row-amount {
@@ -839,7 +847,34 @@ header {
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--ink);
+}
+
+/* 削除ボタン */
+.hist-row-del {
+  flex-shrink: 0;
   margin-left: auto;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 400;
+  font-family: inherit;
+  background: none;
+  color: var(--ink-3);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: color 0.12s, background 0.12s;
+}
+
+.hist-row-del:active {
+  color: var(--red);
+  background: var(--red-bg);
 }
 
 /* ========================================
