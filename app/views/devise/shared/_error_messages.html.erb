@@ -1,13 +1,13 @@
 <% if flash[:alert].present? %>
-  <div class="error-alert">
-    <p class="error-message"><%= flash[:alert] %></p>
+  <div class="form-errors">
+    <p><%= flash[:alert] %></p>
   </div>
 <% end %>
 <% if model.errors.any? %>
-  <div class="error-alert">
+  <div class="form-errors">
     <ul>
       <% model.errors.full_messages.each do |message| %>
-        <li class="error-message"><%= message %></li>
+        <li><%= message %></li>
       <% end %>
     </ul>
   </div>

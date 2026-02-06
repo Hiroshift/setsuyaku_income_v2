@@ -4,73 +4,59 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="description" content="節約を収入として可視化するモバイルアプリ">
-    <meta name="author" content="Hiroshift">
-    <meta name="theme-color" content="#0d9488">
+    <meta name="theme-color" content="#0a0d13">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="節約は収入">
     <title>節約は収入</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <div class="wrapper">
-      <!-- ヘッダー -->
-      <header>
-        <div class="header-container">
-          <h1 class="logo">
-            <a href="<%= root_path %>">🌱 節約は収入</a>
-          </h1>
-          <nav class="nav-links">
-            <% if user_signed_in? %>
-              <span class="account-name"><%= current_user.nickname %></span>
-              <% unless controller_name == "registrations" && action_name == "edit" %>
-                <%= link_to "編集", edit_user_registration_path, class: "btn-secondary" %>
-              <% end %>
-              <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn-logout" %>
-            <% else %>
-              <% if controller_name == "registrations" && action_name == "new" %>
-                <%= link_to "ログイン", new_user_session_path, class: "btn-secondary" %>
-              <% elsif controller_name == "sessions" && action_name == "new" %>
-                <%= link_to "新規登録", new_user_registration_path, class: "btn-primary" %>
-              <% else %>
-                <%= link_to "新規登録", new_user_registration_path, class: "btn-primary" %>
-                <%= link_to "ログイン", new_user_session_path, class: "btn-secondary" %>
-              <% end %>
+    <!-- ヘッダー -->
+    <header>
+      <div class="header-inner">
+        <h1 class="logo">
+          <a href="<%= root_path %>"><span class="logo-mark">¥</span> 節約は収入</a>
+        </h1>
+        <nav class="nav-actions">
+          <% if user_signed_in? %>
+            <span class="nav-user"><%= current_user.nickname %></span>
+            <% unless controller_name == "registrations" && action_name == "edit" %>
+              <%= link_to "設定", edit_user_registration_path, class: "nav-pill nav-pill--ghost" %>
             <% end %>
-          </nav>
-        </div>
-      </header>
-
-      <!-- メインコンテンツ -->
-      <main class="body__container">
-        <div class="flash-messages">
-          <% flash.each do |key, message| %>
-            <div class="alert <%= key == 'notice' ? 'alert-success' : 'alert-danger' %>">
-              <%= message %>
-            </div>
+            <%= link_to "OUT", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-pill nav-pill--muted" %>
+          <% else %>
+            <% if controller_name == "registrations" && action_name == "new" %>
+              <%= link_to "ログイン", new_user_session_path, class: "nav-pill nav-pill--ghost" %>
+            <% elsif controller_name == "sessions" && action_name == "new" %>
+              <%= link_to "はじめる", new_user_registration_path, class: "nav-pill nav-pill--gold" %>
+            <% else %>
+              <%= link_to "はじめる", new_user_registration_path, class: "nav-pill nav-pill--gold" %>
+              <%= link_to "ログイン", new_user_session_path, class: "nav-pill nav-pill--ghost" %>
+            <% end %>
           <% end %>
-        </div>
+        </nav>
+      </div>
+    </header>
 
-        <div class="content__container">
-          <%= yield %>
-        </div>
+    <!-- ページ -->
+    <div class="page">
+      <main class="page-body">
+        <% flash.each do |key, message| %>
+          <div class="flash <%= key == 'notice' ? 'flash--success' : 'flash--error' %>">
+            <%= message %>
+          </div>
+        <% end %>
+
+        <%= yield %>
       </main>
 
-      <!-- フッター -->
-      <footer class="footer">
-        <div class="footer-container">
-          <p>&copy; <%= Date.today.year %> 節約は収入</p>
-        </div>
+      <footer class="page-footer">
+        &copy; <%= Date.today.year %> 節約は収入
       </footer>
     </div>
   </body>

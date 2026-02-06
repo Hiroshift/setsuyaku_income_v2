@@ -1,76 +1,63 @@
 <% if user_signed_in? %>
-  <!-- 節約記録フォーム -->
-  <div class="new-income-form">
-    <h2>💰 節約を記録</h2>
-    <%= form_with url: new_income_path, method: :post, local: true, class: "income-form" do |f| %>
-      <div class="form-group">
-        <%= f.label :amount, "節約金額（円）" %>
-        <%= f.number_field :amount, placeholder: "500", class: "form-control", required: true, min: 1, inputmode: "numeric" %>
+
+  <!-- 節約を記録（1秒で終わる） -->
+  <div class="record-section">
+    <p class="record-title">節約を記録する</p>
+    <%= form_with url: new_income_path, method: :post, local: true do |f| %>
+      <div class="record-input-wrap">
+        <span class="record-yen">¥</span>
+        <%= f.number_field :amount, placeholder: "0", class: "record-input", required: true, min: 1, inputmode: "numeric", autocomplete: "off" %>
       </div>
-      <div class="form-group">
-        <%= f.submit "記録する", class: "btn btn-primary btn-block" %>
-      </div>
+      <%= f.submit "記録する", class: "record-btn" %>
     <% end %>
   </div>
 
-  <!-- ダッシュボードカード -->
-  <div class="data-display-container">
-    <div class="data-display-item today-income-display">
-      <div class="card-label">
-        <h2>今日の節約収入</h2>
-      </div>
-      <div class="card-value">
-        <p>¥<%= number_with_delimiter(@today_income) %></p>
-      </div>
+  <!-- ダッシュボード -->
+  <div class="stats">
+    <div class="stat-card stat-card--today">
+      <span class="stat-label">TODAY</span>
+      <span class="stat-value">¥<%= number_with_delimiter(@today_income) %></span>
     </div>
 
-    <div class="data-display-item my-time-display">
-      <div class="card-label">
-        <h2>取り戻した時間</h2>
-      </div>
-      <div class="card-value">
-        <p><%= @virtual_work_time %> 時間</p>
-      </div>
+    <div class="stat-card stat-card--time">
+      <span class="stat-label">TIME SAVED</span>
+      <span class="stat-value"><%= @virtual_work_time %>h</span>
     </div>
 
-    <div class="data-display-item total-income-display">
-      <div class="card-label">
-        <h2>累計の節約収入</h2>
-      </div>
-      <div class="card-value">
-        <p>¥<%= number_with_delimiter(@total_income) %></p>
-      </div>
+    <div class="stat-card stat-card--total">
+      <span class="stat-label">TOTAL</span>
+      <span class="stat-value">¥<%= number_with_delimiter(@total_income) %></span>
     </div>
   </div>
 
 <% else %>
-  <!-- 未ログイン: ヒーローセクション -->
-  <div class="hero-section">
-    <h2>節約は、<span class="hero-accent">時間</span>を<br>取り戻すこと。</h2>
-    <p>節約を「収入」と「取り戻した時間」に換算。<br>お金の価値を、働いた時間で実感できるアプリです。</p>
 
-    <div class="hero-cards">
-      <div class="hero-card">
-        <div class="hero-card-icon green">💰</div>
-        <div>
-          <h3>節約を記録</h3>
-          <p>日々の節約金額をサッと記録</p>
-        </div>
+  <!-- 未ログイン：ヒーロー -->
+  <div class="hero">
+    <h2 class="hero-headline">
+      節約は、<span class="hero-gold">収入</span>だ。
+    </h2>
+    <p class="hero-sub">
+      節約した金額を「収入」と「取り戻した時間」に変換。<br>
+      毎日の小さな節約が、どれだけの価値か実感できます。
+    </p>
+
+    <div class="hero-features">
+      <div class="hero-feature">
+        <div class="hero-feature-dot hero-feature-dot--gold">¥</div>
+        <span class="hero-feature-text">節約金額をサッと記録</span>
       </div>
-      <div class="hero-card">
-        <div class="hero-card-icon blue">⏰</div>
-        <div>
-          <h3>時間に換算</h3>
-          <p>節約額を時給ベースで時間に変換</p>
-        </div>
+      <div class="hero-feature">
+        <div class="hero-feature-dot hero-feature-dot--blue">⏱</div>
+        <span class="hero-feature-text">時給ベースで時間に換算</span>
       </div>
-      <div class="hero-card">
-        <div class="hero-card-icon purple">📊</div>
-        <div>
-          <h3>成果を実感</h3>
-          <p>累計の節約収入と時間を表示</p>
-        </div>
+      <div class="hero-feature">
+        <div class="hero-feature-dot hero-feature-dot--purple">∑</div>
+        <span class="hero-feature-text">累計の節約収入を可視化</span>
       </div>
     </div>
+
+    <%= link_to "無料ではじめる", new_user_registration_path, class: "hero-cta" %>
   </div>
+
 <% end %>
