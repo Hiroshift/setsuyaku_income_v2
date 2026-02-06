@@ -156,7 +156,43 @@ header {
 .record-q {
   font-size: 0.8rem;
   color: var(--ink-2);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+/* プリセットチップ */
+.record-chips {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.record-chip {
+  flex: 1;
+  padding: 10px 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  background: var(--surface);
+  color: var(--ink-2);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 0.12s, color 0.12s, background 0.12s;
+  min-height: 44px;
+  text-align: center;
+}
+
+.record-chip:active {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.record-chip.is-selected {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
 }
 
 .record-input-wrap {
@@ -203,7 +239,7 @@ header {
 .record-input::placeholder {
   color: var(--ink-3);
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 0.88rem;
 }
 
 .record-btn {

@@ -1,11 +1,19 @@
 <% if user_signed_in? %>
 
-  <div class="record">
+  <div class="record" data-controller="amount">
     <p class="record-q">いくら節約しましたか？</p>
+    <div class="record-chips">
+      <button type="button" class="record-chip" data-amount="100" data-amount-target="chip" data-action="amount#select">¥100</button>
+      <button type="button" class="record-chip" data-amount="300" data-amount-target="chip" data-action="amount#select">¥300</button>
+      <button type="button" class="record-chip" data-amount="500" data-amount-target="chip" data-action="amount#select">¥500</button>
+      <button type="button" class="record-chip" data-amount="1000" data-amount-target="chip" data-action="amount#select">¥1,000</button>
+    </div>
     <%= form_with url: new_income_path, method: :post, local: true do |f| %>
       <div class="record-input-wrap">
         <span class="record-yen">¥</span>
-        <%= f.number_field :amount, placeholder: "0", class: "record-input", required: true, min: 1, inputmode: "numeric", autocomplete: "off" %>
+        <%= f.number_field :amount, placeholder: "その他の金額", class: "record-input",
+              required: true, min: 1, inputmode: "numeric", autocomplete: "off",
+              data: { amount_target: "input", action: "input->amount#typed" } %>
       </div>
       <%= f.submit "収入に変換する", class: "record-btn" %>
     <% end %>
