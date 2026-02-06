@@ -1,23 +1,39 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["input", "chip"]
+  static targets = ["display", "hidden"]
+  static values = { max: { type: Number, default: 99999 } }
 
-  select(event) {
+  connect() {
+    this.amount = ""
+  }
+
+  press(event) {
     event.preventDefault()
-    const value = event.currentTarget.dataset.amount
-    this.inputTarget.value = value
-    this.inputTarget.focus()
-    this.highlightChip(event.currentTarget)
+    const digit = event.currentTarget.dataset.key
+
+    const next = this.amount + digit
+    if (parseInt(next, 10) > this.maxValue) return
+
+    this.amount = next
+    this.render()
   }
 
-  // 手動入力したらチップの選択状態をクリア
-  typed() {
-    this.chipTargets.forEach(chip => chip.classList.remove("is-selected"))
+  del(event) {
+    event.preventDefault()
+    this.amount = this.amount.slice(0, -1)
+    this.render()
   }
 
-  highlightChip(selected) {
-    this.chipTargets.forEach(chip => chip.classList.remove("is-selected"))
-    selected.classList.add("is-selected")
+  clear(event) {
+    event.preventDefault()
+    this.amount = ""
+    this.render()
+  }
+
+  render() {
+    const num = this.amount === "" ? 0 : parseInt(this.amount, 10)
+    this.displayTarget.textContent = `¥${num.toLocaleString()}`
+    this.hiddenTarget.value = num || ""
   }
 }

@@ -2,19 +2,26 @@
 
   <div class="record" data-controller="amount">
     <p class="record-q">いくら節約しましたか？</p>
-    <div class="record-chips">
-      <button type="button" class="record-chip" data-amount="100" data-amount-target="chip" data-action="amount#select">¥100</button>
-      <button type="button" class="record-chip" data-amount="300" data-amount-target="chip" data-action="amount#select">¥300</button>
-      <button type="button" class="record-chip" data-amount="500" data-amount-target="chip" data-action="amount#select">¥500</button>
-      <button type="button" class="record-chip" data-amount="1000" data-amount-target="chip" data-action="amount#select">¥1,000</button>
-    </div>
+    <p class="record-display" data-amount-target="display">¥0</p>
+
     <%= form_with url: new_income_path, method: :post, local: true do |f| %>
-      <div class="record-input-wrap">
-        <span class="record-yen">¥</span>
-        <%= f.number_field :amount, placeholder: "その他の金額", class: "record-input",
-              required: true, min: 1, inputmode: "numeric", autocomplete: "off",
-              data: { amount_target: "input", action: "input->amount#typed" } %>
+      <%= f.hidden_field :amount, value: "", data: { amount_target: "hidden" } %>
+
+      <div class="keypad">
+        <button type="button" class="key" data-key="1" data-action="amount#press">1</button>
+        <button type="button" class="key" data-key="2" data-action="amount#press">2</button>
+        <button type="button" class="key" data-key="3" data-action="amount#press">3</button>
+        <button type="button" class="key" data-key="4" data-action="amount#press">4</button>
+        <button type="button" class="key" data-key="5" data-action="amount#press">5</button>
+        <button type="button" class="key" data-key="6" data-action="amount#press">6</button>
+        <button type="button" class="key" data-key="7" data-action="amount#press">7</button>
+        <button type="button" class="key" data-key="8" data-action="amount#press">8</button>
+        <button type="button" class="key" data-key="9" data-action="amount#press">9</button>
+        <button type="button" class="key key--sub" data-key="00" data-action="amount#press">00</button>
+        <button type="button" class="key" data-key="0" data-action="amount#press">0</button>
+        <button type="button" class="key key--sub" data-action="amount#del">←</button>
       </div>
+
       <%= f.submit "収入に変換する", class: "record-btn" %>
     <% end %>
   </div>
