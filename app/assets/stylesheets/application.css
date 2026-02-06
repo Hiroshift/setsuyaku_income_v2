@@ -1,41 +1,42 @@
 /* ========================================
-   GOLDEN NIGHT — Design System
-   コンセプト: 深い夜空に浮かぶ金色の数字
+   DAYLIGHT GOLD — Design System
+   コンセプト: 日差しの中で映えるゴールドアクセント
    ======================================== */
 
 :root {
-  /* ── 夜空のベース ── */
-  --bg-deep: #0a0d13;
-  --bg-base: #0f1219;
-  --bg-surface: #161c28;
-  --bg-elevated: #1c2436;
+  /* ── ライトベース ── */
+  --bg-page: #f6f5f0;
+  --bg-surface: #ffffff;
+  --bg-elevated: #faf9f6;
+  --bg-inset: #f0efe9;
 
   /* ── ゴールド（お金 = 報酬感） ── */
-  --gold: #e8a838;
-  --gold-bright: #f5c542;
-  --gold-dim: #c4882a;
-  --gold-glow: rgba(232, 168, 56, 0.15);
+  --gold: #b8860b;
+  --gold-bright: #d4a017;
+  --gold-light: #fdf6e3;
+  --gold-glow: rgba(184, 134, 11, 0.10);
 
   /* ── アクセントカラー ── */
-  --green: #34d399;
-  --green-dim: rgba(52, 211, 153, 0.12);
-  --blue: #60a5fa;
-  --blue-dim: rgba(96, 165, 250, 0.12);
-  --purple: #a78bfa;
-  --purple-dim: rgba(167, 139, 250, 0.12);
-  --red: #f87171;
-  --red-dim: rgba(248, 113, 113, 0.12);
+  --green: #16a34a;
+  --green-bg: #f0fdf4;
+  --blue: #2563eb;
+  --blue-bg: #eff6ff;
+  --purple: #7c3aed;
+  --purple-bg: #f5f3ff;
+  --red: #dc2626;
+  --red-bg: #fef2f2;
 
   /* ── テキスト ── */
-  --text-primary: #eaedf2;
-  --text-secondary: #8892a4;
-  --text-muted: #4d5769;
+  --text-primary: #1a1a1a;
+  --text-secondary: #5c5c5c;
+  --text-muted: #9a9a9a;
 
   /* ── ボーダー・シャドウ ── */
-  --border: rgba(255, 255, 255, 0.06);
-  --border-focus: rgba(232, 168, 56, 0.4);
-  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.3);
-  --shadow-glow: 0 0 40px rgba(232, 168, 56, 0.08);
+  --border: #e8e6df;
+  --border-focus: rgba(184, 134, 11, 0.5);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-gold: 0 2px 16px rgba(184, 134, 11, 0.08);
 
   /* ── シェイプ ── */
   --radius: 14px;
@@ -67,7 +68,7 @@ html {
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-  background: var(--bg-deep);
+  background: var(--bg-page);
   color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
@@ -90,7 +91,7 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(10, 13, 19, 0.85);
+  background: rgba(246, 245, 240, 0.9);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
@@ -140,7 +141,7 @@ header {
 
 .nav-pill--gold {
   background: var(--gold);
-  color: var(--bg-deep);
+  color: #fff;
 }
 
 .nav-pill--gold:active {
@@ -217,20 +218,19 @@ header {
 }
 
 .flash--success {
-  background: var(--green-dim);
+  background: var(--green-bg);
   color: var(--green);
-  border: 1px solid rgba(52, 211, 153, 0.2);
+  border: 1px solid #bbf7d0;
 }
 
 .flash--error {
-  background: var(--red-dim);
+  background: var(--red-bg);
   color: var(--red);
-  border: 1px solid rgba(248, 113, 113, 0.2);
+  border: 1px solid #fecaca;
 }
 
 /* ========================================
    ダッシュボード：入力エリア
-   記録は1秒で終わるべき
    ======================================== */
 
 .record-section {
@@ -241,6 +241,7 @@ header {
   margin-bottom: 20px;
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .record-section::before {
@@ -249,8 +250,8 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-dim));
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-bright), var(--gold));
 }
 
 .record-title {
@@ -285,7 +286,7 @@ header {
   padding: 16px 16px 16px 44px;
   font-size: 1.8rem;
   font-weight: 800;
-  background: var(--bg-deep);
+  background: var(--bg-inset);
   border: 2px solid var(--border);
   border-radius: var(--radius);
   color: var(--text-primary);
@@ -299,7 +300,8 @@ header {
 .record-input:focus {
   outline: none;
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px var(--gold-glow), var(--shadow-glow);
+  background: var(--bg-surface);
+  box-shadow: 0 0 0 3px var(--gold-glow), var(--shadow-gold);
 }
 
 .record-input:focus ~ .record-yen {
@@ -324,16 +326,16 @@ header {
   min-height: 54px;
   -webkit-appearance: none;
   appearance: none;
-  background: linear-gradient(135deg, var(--gold-dim) 0%, var(--gold) 50%, var(--gold-bright) 100%);
-  background-size: 200% auto;
-  color: var(--bg-deep);
+  background: var(--gold);
+  color: #fff;
   letter-spacing: 0.04em;
   transition: all 0.2s var(--ease);
+  box-shadow: 0 2px 8px rgba(184, 134, 11, 0.2);
 }
 
 .record-btn:active {
   transform: scale(0.97);
-  filter: brightness(0.9);
+  background: var(--gold-bright);
 }
 
 /* ========================================
@@ -356,7 +358,7 @@ header {
   border-radius: var(--radius);
   position: relative;
   overflow: hidden;
-  transition: all 0.2s var(--ease);
+  box-shadow: var(--shadow-sm);
 }
 
 .stat-card::before {
@@ -384,20 +386,23 @@ header {
   line-height: 1;
 }
 
-/* カード：今日の節約 */
+/* 今日の節約 */
 .stat-card--today {
-  background: linear-gradient(135deg, var(--bg-surface), rgba(232, 168, 56, 0.04));
-  box-shadow: var(--shadow-glow);
+  background: var(--gold-light);
+  border-color: rgba(184, 134, 11, 0.15);
+  box-shadow: var(--shadow-gold);
 }
 .stat-card--today::before { background: var(--gold); }
 .stat-card--today .stat-label { color: var(--gold); }
-.stat-card--today .stat-value { color: var(--gold-bright); }
+.stat-card--today .stat-value { color: var(--gold); }
 
-/* カード：取り戻した時間 */
+/* 取り戻した時間 */
+.stat-card--time { background: var(--blue-bg); border-color: rgba(37, 99, 235, 0.1); }
 .stat-card--time::before { background: var(--blue); }
 .stat-card--time .stat-label { color: var(--blue); }
 
-/* カード：累計収入 */
+/* 累計収入 */
+.stat-card--total { background: var(--purple-bg); border-color: rgba(124, 58, 237, 0.1); }
 .stat-card--total::before { background: var(--purple); }
 .stat-card--total .stat-label { color: var(--purple); }
 
@@ -420,11 +425,11 @@ header {
   line-height: 1.45;
   letter-spacing: -0.02em;
   margin-bottom: 14px;
+  color: var(--text-primary);
 }
 
 .hero-gold {
   color: var(--gold);
-  position: relative;
 }
 
 .hero-sub {
@@ -450,6 +455,7 @@ header {
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
 }
 
 .hero-feature-dot {
@@ -461,11 +467,12 @@ header {
   justify-content: center;
   font-size: 0.95rem;
   flex-shrink: 0;
+  font-weight: 700;
 }
 
-.hero-feature-dot--gold { background: var(--gold-glow); }
-.hero-feature-dot--blue { background: var(--blue-dim); }
-.hero-feature-dot--purple { background: var(--purple-dim); }
+.hero-feature-dot--gold { background: var(--gold-light); color: var(--gold); }
+.hero-feature-dot--blue { background: var(--blue-bg); color: var(--blue); }
+.hero-feature-dot--purple { background: var(--purple-bg); color: var(--purple); }
 
 .hero-feature-text {
   font-size: 0.83rem;
@@ -481,19 +488,19 @@ header {
   font-weight: 700;
   border: none;
   border-radius: var(--radius);
-  background: linear-gradient(135deg, var(--gold-dim), var(--gold), var(--gold-bright));
-  background-size: 200% auto;
-  color: var(--bg-deep);
+  background: var(--gold);
+  color: #fff;
   text-align: center;
   text-decoration: none;
   min-height: 54px;
   line-height: 22px;
   transition: all 0.2s var(--ease);
+  box-shadow: 0 2px 8px rgba(184, 134, 11, 0.2);
 }
 
 .hero-cta:active {
   transform: scale(0.97);
-  filter: brightness(0.9);
+  background: var(--gold-bright);
 }
 
 /* ========================================
@@ -513,6 +520,7 @@ header {
   text-align: center;
   margin-bottom: 4px;
   letter-spacing: -0.02em;
+  color: var(--text-primary);
 }
 
 .auth-sub {
@@ -561,7 +569,7 @@ header {
   outline: none;
   border-color: var(--gold);
   box-shadow: 0 0 0 3px var(--gold-glow);
-  background: var(--bg-elevated);
+  background: var(--bg-surface);
 }
 
 .field-input::placeholder {
@@ -586,16 +594,16 @@ header {
   min-height: 54px;
   -webkit-appearance: none;
   appearance: none;
-  background: linear-gradient(135deg, var(--gold-dim), var(--gold), var(--gold-bright));
-  background-size: 200% auto;
-  color: var(--bg-deep);
+  background: var(--gold);
+  color: #fff;
   margin-top: 4px;
   transition: all 0.2s var(--ease);
+  box-shadow: 0 2px 8px rgba(184, 134, 11, 0.2);
 }
 
 .auth-submit:active {
   transform: scale(0.97);
-  filter: brightness(0.9);
+  background: var(--gold-bright);
 }
 
 .auth-check {
@@ -640,8 +648,8 @@ header {
 }
 
 .form-errors {
-  background: var(--red-dim);
-  border: 1px solid rgba(248, 113, 113, 0.2);
+  background: var(--red-bg);
+  border: 1px solid #fecaca;
   border-radius: var(--radius-sm);
   padding: 12px 16px;
   margin-bottom: 16px;
@@ -707,9 +715,9 @@ header {
 }
 
 .danger-btn:active {
-  background: var(--red-dim);
+  background: var(--red-bg);
   color: var(--red);
-  border-color: rgba(248, 113, 113, 0.3);
+  border-color: #fecaca;
 }
 
 /* ========================================
@@ -721,7 +729,7 @@ header {
   position: fixed;
   z-index: 1000;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   animation: fadeIn 0.2s var(--ease);
@@ -736,6 +744,7 @@ header {
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   padding: 32px 24px;
   padding-bottom: calc(32px + var(--safe-bottom));
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
   animation: slideSheetUp 0.3s var(--ease);
 }
 
@@ -768,7 +777,7 @@ header {
   border-radius: var(--radius);
   font-size: 0.95rem;
   font-weight: 600;
-  background: var(--bg-elevated);
+  background: var(--bg-inset);
   color: var(--text-secondary);
   border: 1px solid var(--border);
   cursor: pointer;
@@ -813,7 +822,6 @@ header {
   to { transform: translateY(0); }
 }
 
-/* ページ読み込み時のフェードイン */
 .page-body > * {
   animation: fadeSlide 0.4s var(--ease) both;
 }
