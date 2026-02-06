@@ -5,15 +5,33 @@ class HomeController < ApplicationController
     today = Date.today
 
     if user_signed_in?
+      # --- 今日 ---
       @today_income = current_user.recordings.where(recorded_date: today).sum(:amount)
-      @total_income = current_user.recordings.sum(:amount)
       @total_minutes = calculate_minutes(@today_income)
       @virtual_work_time = format_time(@total_minutes)
+
+      # --- 累計 ---
+      @total_income = current_user.recordings.sum(:amount)
+      @lifetime_minutes = calculate_minutes(@total_income)
+      @lifetime_display = format_life_time(@lifetime_minutes)
+
+      # --- 年間プロジェクション ---
+      first_record = current_user.recordings.minimum(:recorded_date)
+      if first_record && @total_income > 0
+        days_active = [(today - first_record).to_i, 1].max
+        daily_avg_income = @total_income.to_f / days_active
+        remaining_days = (Date.new(today.year, 12, 31) - today).to_i
+        projected_annual_income = @total_income + (daily_avg_income * remaining_days).round
+        projected_annual_minutes = calculate_minutes(projected_annual_income)
+        @annual_projection = format_life_time(projected_annual_minutes)
+        @daily_avg_display = "¥#{daily_avg_income.round.to_fs(:delimited)}/日"
+      end
     else
       @today_income = 0
       @virtual_work_time = "0分"
       @total_income = 0
       @total_minutes = 0
+      @lifetime_minutes = 0
     end
   end
 
@@ -68,5 +86,19 @@ class HomeController < ApplicationController
     else
       "#{mins}分"
     end
+  end
+
+  # 日数を含む大きな時間表現（累計・プロジェクション用）
+  def format_life_time(total_minutes)
+    days = total_minutes / (60 * 24)
+    remaining = total_minutes % (60 * 24)
+    hours = remaining / 60
+    mins = remaining % 60
+
+    parts = []
+    parts << "#{days}日" if days > 0
+    parts << "#{hours}時間" if hours > 0
+    parts << "#{mins}分" if mins > 0 && days == 0  # 日数があるときは分は省略
+    parts.empty? ? "0分" : parts.join
   end
 end
