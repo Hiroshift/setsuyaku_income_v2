@@ -464,7 +464,45 @@ header {
 .stat-card--total .stat-label { color: var(--purple); }
 
 /* ========================================
-   AI提案カード
+   AI提案：「聞く」ボタン
+   ======================================== */
+
+.ai-ask {
+  margin-top: 16px;
+}
+
+.ai-ask-btn {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-family: inherit;
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  min-height: 50px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.ai-ask-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-light);
+}
+
+.ai-ask-btn:active {
+  transform: scale(0.97);
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-light);
+}
+
+/* ========================================
+   AI提案：結果カード
    ======================================== */
 
 .ai-suggestion {
@@ -476,7 +514,6 @@ header {
   position: relative;
   overflow: hidden;
   animation: fadeSlide 0.5s var(--ease) both;
-  animation-delay: 0.2s;
 }
 
 .ai-suggestion::before {
@@ -502,10 +539,9 @@ header {
 }
 
 .ai-suggestion-title {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--gold);
-  letter-spacing: 0.02em;
 }
 
 .ai-suggestion-text {
@@ -513,7 +549,35 @@ header {
   font-weight: 500;
   color: var(--text-primary);
   line-height: 1.7;
-  letter-spacing: 0.01em;
+}
+
+.ai-suggestion-actions {
+  margin-top: 14px;
+  text-align: right;
+}
+
+.ai-retry-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: inherit;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  min-height: 34px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.ai-retry-btn:active {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--gold-light);
 }
 
 /* ========================================

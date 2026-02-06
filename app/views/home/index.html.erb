@@ -51,15 +51,15 @@
     </div>
   </div>
 
-  <% if flash[:ai_suggestion].present? %>
-    <!-- AIからの提案 -->
-    <div class="ai-suggestion">
-      <div class="ai-suggestion-header">
-        <span class="ai-suggestion-icon">✨</span>
-        <span class="ai-suggestion-title">取り戻した時間の使い方</span>
+  <!-- AIに聞く（ユーザーが選択） -->
+  <% if @total_minutes > 0 %>
+    <%= turbo_frame_tag "ai_suggestion" do %>
+      <div class="ai-ask">
+        <%= button_to "✨ #{@virtual_work_time}の使い方をAIに聞く", suggest_path,
+              class: "ai-ask-btn",
+              data: { turbo_frame: "ai_suggestion" } %>
       </div>
-      <p class="ai-suggestion-text"><%= flash[:ai_suggestion] %></p>
-    </div>
+    <% end %>
   <% end %>
 
 <% else %>
