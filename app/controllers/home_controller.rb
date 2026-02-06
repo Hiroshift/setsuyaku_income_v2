@@ -9,11 +9,21 @@ class HomeController < ApplicationController
       # ログインしている場合の計算
       @today_income = current_user.recordings.where(recorded_date: today).sum(:amount)
       @total_income = current_user.recordings.sum(:amount)
-      @virtual_work_time = if current_user.hourly_rate.positive?
-                             (@today_income.to_f / current_user.hourly_rate).round(2)
-                           else
-                             0
-                           end
+      # 分単位で計算（例: 23分、1時間15分）
+      if current_user.hourly_rate.positive?
+        total_minutes = (@today_income.to_f / current_user.hourly_rate * 60).round
+        hours = total_minutes / 60
+        mins = total_minutes % 60
+        @virtual_work_time = if hours > 0 && mins > 0
+                               "#{hours}時間#{mins}分"
+                             elsif hours > 0
+                               "#{hours}時間"
+                             else
+                               "#{mins}分"
+                             end
+      else
+        @virtual_work_time = "0分"
+      end
     else
       # 未ログイン時の仮データ
       @today_income = 0
