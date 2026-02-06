@@ -27,7 +27,20 @@ class HomeController < ApplicationController
     if amount.positive?
       # 新しい記録をデータベースに保存
       if current_user.recordings.create(amount: amount, recorded_date: Date.today)
-        flash[:notice] = '節約金額が記録されました！'
+        # 変換情報をフラッシュメッセージに含める
+        message = "¥#{amount.to_fs(:delimited)}の節約収入を獲得！"
+        if current_user.hourly_rate.positive?
+          minutes = (amount.to_f / current_user.hourly_rate * 60).round
+          if minutes >= 60
+            hours = minutes / 60
+            mins = minutes % 60
+            time_str = mins > 0 ? "#{hours}時間#{mins}分" : "#{hours}時間"
+          else
+            time_str = "#{minutes}分"
+          end
+          message += " （#{time_str}の自由を取り戻しました）"
+        end
+        flash[:notice] = message
       else
         flash[:alert] = '記録に失敗しました。もう一度お試しください。'
       end

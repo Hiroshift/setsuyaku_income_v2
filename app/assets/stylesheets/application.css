@@ -255,9 +255,16 @@ header {
 }
 
 .record-title {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.record-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
   text-align: center;
   margin-bottom: 20px;
 }
@@ -368,9 +375,62 @@ header {
   height: 100%;
 }
 
+/* 変換フロー */
+.conversion-flow {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.flow-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.flow-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.flow-icon--gold { background: var(--gold-light); color: var(--gold); }
+.flow-icon--blue { background: var(--blue-bg); color: var(--blue); }
+.flow-icon--purple { background: var(--purple-bg); color: var(--purple); }
+
+.flow-arrow {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.flow-caption {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* カード内部 */
+.stat-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
 .stat-label {
   font-size: 0.75rem;
   font-weight: 600;
+  line-height: 1;
+}
+
+.stat-hint {
+  font-size: 0.68rem;
+  color: var(--text-muted);
   line-height: 1;
 }
 
@@ -380,6 +440,7 @@ header {
   color: var(--text-primary);
   letter-spacing: -0.03em;
   line-height: 1;
+  flex-shrink: 0;
 }
 
 /* 今日の節約 */
@@ -433,6 +494,67 @@ header {
   color: var(--text-secondary);
   line-height: 1.8;
   margin-bottom: 36px;
+}
+
+/* 具体例ボックス */
+.example-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px 20px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-sm);
+}
+
+.example-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.example-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.example-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 0;
+}
+
+.example-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.example-value {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.example-value--save {
+  color: var(--text-secondary);
+}
+
+.example-value--income {
+  color: var(--gold);
+}
+
+.example-value--time {
+  color: var(--blue);
+}
+
+.example-arrow {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1;
 }
 
 .hero-features {
