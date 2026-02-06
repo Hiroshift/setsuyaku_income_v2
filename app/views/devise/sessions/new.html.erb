@@ -1,0 +1,29 @@
+<div class="contents row">
+  <div class="container">
+    <h2>ログイン</h2>
+    <%= render "devise/shared/error_messages", model: resource %>
+    <%= form_with model: resource, url: session_path(resource_name), class: 'login-form', local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :email, "メールアドレス" %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "PC・携帯どちらでも可" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password, "パスワード" %><br />
+        <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "6文字以上の半角英数字" %>
+        <small>※英字と数字の両方を含めて設定してください</small>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="form-check">
+          <%= f.check_box :remember_me, class: "form-check-input" %>
+          <%= f.label :remember_me, "ログイン状態を保持する", class: "form-check-label" %>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.submit "ログイン", class: "btn btn-primary btn-block" %>
+      </div>
+    <% end %>
+  </div>
+</div>

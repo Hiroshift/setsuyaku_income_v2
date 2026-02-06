@@ -1,0 +1,790 @@
+/* Reset CSS */
+/* すべての要素のボックスサイズをボーダー内に収め、余白をリセット */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 基本のbodyスタイル設定 */
+/* サンフランシスコフォントを推奨フォントに追加 */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif; /* デバイスネイティブフォントを優先 */
+  background-color: #f5f5f5; /* ページ全体の背景色を薄いグレーに設定 */
+  color: #212529; /* テキストのデフォルト色を濃いグレーに設定 */
+  /* line-height: 1.6; /* 行間を広げて読みやすくする */
+  /* min-height: 100vh; /* 最低高さをブラウザの高さに合わせる */
+  /* padding: 20px 0; /* ページ全体に上下余白を追加 */
+  height: 100%; /* ページ全体の高さを確保 */
+  margin: 0; /* 不要な余白を削除 */
+  padding: 0;
+  display: flex; /* フレックスボックスでレイアウト */
+  flex-direction: column; /* ヘッダー、メイン、フッターを縦方向に配置 */
+  min-height: 100vh; /* 高さを画面全体に */
+}
+
+/* 全体コンテナ */
+/*.wrapper {
+  max-width: 800px; /* 最大幅を設定 */
+  /* margin: 0 auto; /* 中央揃え */
+  /*padding: 20px; /* 内側余白を設定 */
+  /*background-color: #d36969;;
+  /* border-radius: 10px;
+  /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
+  /*display: flex;
+  flex-direction: column;
+  flex: 1; /* ヘッダーとフッター以外を埋める */
+/*}
+
+/* ヘッダー全体のスタイル */
+header {
+  width: 100%; /* ヘッダー全体を親要素に広げる */
+  background-color: #f5f5f5; /* 背景色を白に設定 */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+  padding: 4px 0; /* 上下に余白を追加 */
+  /* border-radius: 8px; /* カードの角を丸くする */
+}
+
+/* ヘッダー */
+.header-container {
+  display: flex; /* フレックスボックスでレイアウト */
+  justify-content: space-between; /* ロゴとボタンを左右に配置 */
+  align-items: center; /* 縦方向に中央揃え */
+  background-color: #f5f5f5; /* 背景色を白に設定 */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+  max-width: 600px; /* 幅を適切に制限 */
+  margin: 0 auto; /* 中央揃え */
+  padding: 8px 16px; /* 内側の余白を設定 */
+  box-sizing: border-box; /* ボックスサイズを含める */
+  height: auto;
+
+}
+
+/* 全体を制御するコンテナ */
+/* 最大幅を800pxに制限し、中央揃え */
+.body__container {
+  display: flex; /* フレックスボックスでレイアウト */
+  flex-direction: column; /* 縦に要素を配置 */
+  align-items: center; /* 横方向の中央揃え */
+  padding: 1rem 0; /* 上下の余白を追加 */
+  width: 100%; /* コンテナ幅を100%に設定 */
+  max-width: 800px; /* 最大幅を800pxに制限 */
+  margin: 0 auto; /* コンテナをページ中央に配置 */
+  min-height: 100vh; /* ページ全体の高さに合わせる */
+  /* flex: 1; /* 残りのスペースを埋める */
+}
+
+/* 修正: 内側コンテンツの余白と間隔を統一 */
+.content__container {
+  background-color: #ffffff; /* カード背景を白に設定 */
+  border-radius: 8px; /* カードの角を丸くする */
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 軽い影を追加して浮き出る効果 */
+  width: 100%; /* 幅をデバイス幅に合わせる */
+  max-width: 600px; /* 最大幅を800pxに制限 */
+  margin: 0px auto; /* 上下余白を追加して中央揃え */
+  padding: 8px; /* 内側に余白を追加 */
+}
+
+/* ヘッダー内のロゴやタイトルのスタイル */
+.logo a {
+  font-size: 24px; /* ロゴの文字サイズを調整 */
+  color: #333; /* ロゴ文字を白に設定 */
+  text-decoration: none; /* 下線を除去 */
+  font-weight: bold; /* 太字を適用 */
+}
+
+/* ナビゲーションリンク全体のスタイル */
+/* nav-links全体のレイアウト設定 */
+.nav-links {
+  display: flex; /* 横並びのレイアウト */
+  gap: 8px; /* 各リンク間の間隔を設定 */
+  align-items: center; /* 縦方向に中央揃え */
+  /* flex: 0 0 auto; /* レスポンシブ時に折り返しを許可 */
+  justify-content: flex-end; /* 右寄せ */
+  max-width: 600px; /* 必要に応じて制限 */
+  width: auto; /* 幅を100%に設定 */
+  /* box-sizing: border-box; /* ボックスサイズを調整 */
+}
+
+/* 一般的なリンクの基本スタイル */
+.nav-links a {
+  display: inline-block; /* ボタンをインラインブロックに */
+  flex: 1; /* ボタンの幅を均等に */
+  padding: 10px 0; /* 内側の余白を設定 */
+  background-color: #007bff; /* 初期状態の青色背景 */
+  color: #ffffff; /* リンクの文字色を白に設定 */
+  text-decoration: none; /* 下線を除去 */
+  font-size: 0.85rem; /* フォントサイズを少し小さく設定 */
+  border-radius: 5px; /* ボタンの角を丸くする */
+  transition: background-color 0.3s ease; /* 背景色の変更をスムーズに */
+  text-align: center;
+  min-width: 120px; /* 最小幅を設定 */
+  /* max-width: none; /* 横幅を50%未満に制限 */
+  box-sizing: border-box; /* ボックスサイズを調整 */
+  white-space: nowrap; /* テキストを折り返さずに1行に収める */
+  height: 40px; /* 高さを固定 */
+  width: 20%; /* 幅を固定 */
+  line-height: 24px; /* テキストの高さを中央に揃える */
+}
+
+/* 新規登録ボタン専用のスタイル */
+.nav-links a.btn-primary {
+  background-color: #007bff; /* 初期状態の青色背景 */
+  color: #ffffff; /* ボタン文字を白に設定 */
+  padding: 8px 12px; /* 内側の余白を設定 */
+  border-radius: 5px; /* ボタンの角を丸くする */
+  font-size: 0.8rem; /* フォントサイズを統一 */
+  transition: background-color 0.3s ease; /* 背景色の変更をスムーズに */
+}
+
+/* 新規登録ボタンのホバー時のスタイル */
+.nav-links a.btn-primary:hover {
+  background-color: #0056b3; /* ホバー時の背景色を濃い青色に設定 */
+}
+
+/* ログインボタン専用のスタイル */
+.nav-links a.btn-primary {
+  background-color: #007bff; /* 初期状態の青色背景 */
+  color: #ffffff; /* ボタン文字を白に設定 */
+  padding: 8px 12px; /* 内側の余白を設定 */
+  border-radius: 5px; /* ボタンの角を丸くする */
+  font-size: 0.8rem; /* フォントサイズを統一 */
+  transition: background-color 0.3s ease; /* 背景色の変更をスムーズに */
+}
+
+/* ログインボタンのホバー時のスタイル */
+.nav-links a.btn-primary:hover {
+  background-color: #0056b3; /* ホバー時の背景色を濃い青色に設定 */
+}
+
+/* プロフィール編集ボタン専用のスタイル */
+.nav-links a.btn-secondary {
+  background-color: #007bff; /* 初期状態の青色背景 */
+  color: #ffffff; /* ボタン文字を白に設定 */
+  padding: 8px 12px; /* 内側の余白を設定 */
+  border-radius: 5px; /* ボタンの角を丸くする */
+  font-size: 0.8rem; /* フォントサイズを統一 */
+  transition: background-color 0.3s ease; /* 背景色の変更をスムーズに */
+}
+
+/* プロフィール編集ボタンのホバー時のスタイル */
+.nav-links a.btn-secondary:hover {
+  background-color: #0056b3; /* ホバー時の背景色を濃い青色に設定 */
+}
+
+/* ログアウトボタン専用のスタイル */
+.nav-links a.btn-logout {
+  background-color: #007bff; /* 初期状態の赤色背景 */
+  color: #ffffff; /* ボタン文字を白に設定 */
+  padding: 8px 12px; /* 内側の余白を設定 */
+  border-radius: 5px; /* ボタンの角を丸くする */
+  font-size: 0.8rem; /* フォントサイズを統一 */
+  transition: background-color 0.3s ease; /* 背景色の変更をスムーズに */
+}
+
+/* ログアウトボタンのホバー時のスタイル */
+.nav-links a.btn-logout:hover {
+  background-color: #c82333; /* ホバー時の背景色を濃い赤色に設定 */
+}
+
+/* アカウント名のスタイル */
+.account-name {
+  /* flex: 0 0 auto; /* サイズを固定 */
+  white-space: nowrap; /* テキストを折り返さずに1行に収める */
+  overflow: hidden; /* 長いテキストを隠す */
+  text-overflow: ellipsis; /* 長いテキストの末尾に「…」を表示 */
+  /* max-width: 120px; /* アカウント名の最大幅を制限 */
+  /* display: inline-block; /* 横並びレイアウトを維持 */
+  font-size: 0.85rem; /* テキストサイズを小さめに調整 */
+  font-weight: bold; /* 太字で目立たせる */
+  margin-right: 16px; /* ボタンとの間に余白を追加 */
+  /* text-align: right; /* テキストを右揃え */
+}
+
+/* フッター */
+.footer-container {
+  margin-top: auto; /* フッターの上に余白を追加 */
+  text-align: center; /* 中央揃え */
+  font-size: 16px; /* フォントサイズを少し小さく */
+  color: #6c757d; /* 薄いグレー */
+  /* background-color: #ffffff; /* 背景を白 */
+  /* padding: 16px 0; /* 上下の余白を設定 */
+}
+
+/* General Container (共通) */
+/* 画面全体の中央寄せと幅を制限 */
+/*.container {
+  max-width: 1200px; /* 最大幅を1200pxに設定 */
+  /*margin: 0 auto; /* 中央寄せ */
+  /* padding: 20px; /* 内側の余白を設定 */
+/*}
+
+/* 共通フォームスタイル */
+/* すべてのフォームの背景や枠を統一 */
+form {
+  background: #ffffff; /* 背景色を白に設定 */
+  padding: 20px; /* 内側の余白を設定 */
+  border-radius: 5px; /* フォームの角を丸くする */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 軽い影をつける */
+}
+
+/* フォーム内の各グループスタイル */
+form .form-group {
+  margin-bottom: 15px; /* 下に余白を設定 */
+}
+
+/* フォーム内のラベルスタイル */
+form .form-group label {
+  display: inline-block; /* ラベルをブロック要素にする */
+  margin-bottom: 5px; /* 下に少し余白を設定 */
+  font-weight: bold; /* ラベルを太字に設定 */
+}
+
+/* 入力フィールドとセレクトボックスのスタイル */
+form .form-group input,
+form .form-group select {
+  width: 100%; /* 幅をフォーム全体に広げる */
+  padding: 12px; /* 内側に余白を設定 */
+  border: 1px solid #ced4da; /* 枠線を薄いグレーに設定 */
+  border-radius: 5px; /* 角を丸くする */
+  font-size: 1rem; /* フォントサイズを統一 */
+}
+
+/* フォーム内の補足説明のスタイル */
+form .form-group small {
+  display: block; /* 補足説明をブロック要素にする */
+  margin-top: 5px; /* 上に少し余白を設定 */
+  font-size: 0.9rem; /* フォントサイズを小さくする */
+  color: #6c757d; /* 薄いグレーの文字色 */
+}
+
+/* フォーム内の送信ボタンのスタイル */
+form .form-group button {
+  width: 100%; /* ボタンをフォーム全体に広げる */
+  padding: 12px; /* 内側に余白を設定 */
+  border: none; /* 枠線を除去 */
+  border-radius: 5px; /* ボタンの角を丸くする */
+  background-color: #007bff; /* 青色の背景 */
+  color: #ffffff; /* ボタン文字を白色に設定 */
+  font-size: 1rem; /* フォントサイズを統一 */
+  font-weight: bold; /* 太字に設定 */
+  cursor: pointer; /* ポインタを表示 */
+}
+
+form .form-group button:hover {
+  background-color: #0056b3; /* ホバー時に濃い青色に変更 */
+}
+
+/* income-form用の特化スタイルを追加 */
+.income-form {
+  margin: 0 auto; /* フォームを中央揃え */
+  max-width: 800px; /* 最大幅を制限 */
+}
+
+/* income-formの入力フィールド専用スタイル */
+.income-form .form-control {
+  padding: 10px; /* 内側余白を調整 */
+  font-size: 16px; /* フォントサイズを統一 */
+  border: 1px solid #ced4da; /* グレーの枠線 */
+  border-radius: 5px; /* 入力フィールドの角を丸く */
+}
+
+/* income-formの送信ボタン専用スタイル */
+.income-form .btn {
+  background-color: #007bff; /* 青色の背景 */
+  color: #ffffff; /* 白い文字 */
+  padding: 12px; /* 内側余白 */
+  font-size: 1rem; /* フォントサイズを統一 */
+  border: none; /* 枠線を除去 */
+  border-radius: 5px; /* ボタンの角を丸く */
+  cursor: pointer; /* カーソルをポインターに */
+}
+
+.income-form .btn:hover {
+  background-color: #0056b3; /* ホバー時の濃い青色 */
+}
+
+/* サインアップページのスタイル */
+.signup {
+  display: flex; /* フレックスボックスでレイアウト */
+  justify-content: center; /* 横方向に中央寄せ */
+  align-items: center; /* 縦方向に中央寄せ */
+  height: 100vh; /* 画面全体を占める高さに設定 */
+  background-color: #e9ecef; /* 薄いグレーの背景 */
+}
+
+/* ログインページのスタイル */
+.login {
+  display: flex; /* フレックスボックスでレイアウト */
+  justify-content: center; /* 横方向に中央寄せ */
+  align-items: center; /* 縦方向に中央寄せ */
+  height: 100vh; /* 画面全体を占める高さに設定 */
+  background-color: #e9ecef; /* 薄いグレーの背景 */
+}
+
+/* ホームページのスタイル */
+.home-container {
+  padding: 20px; /* 内側の余白を設定 */
+  text-align: center; /* テキストを中央寄せ */
+}
+
+.home-container .income-display {
+  background-color: #ffffff; /* 背景色を白に設定 */
+  padding: 15px; /* 内側の余白を設定 */
+  border-radius: 5px; /* 角を丸くする */
+  margin-bottom: 20px; /* 下に余白を追加 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 軽い影をつける */
+}
+
+.home-container .income-display h2 {
+  margin-bottom: 10px; /* 下に余白を追加 */
+  font-size: 1.5rem; /* 見出しを大きく設定 */
+}
+
+/* 新しい節約金額を記録するフォームのスタイル */
+/* フォーム全体のデザイン */
+/* 修正: フォームスタイルのコンパクト化 */
+/* 新しい節約金額を入力するフォームのデザインをシンプルかつモダンに調整 */
+.new-income-form {
+  background-color: #ffffff; /* フォームの背景色を白に設定 */
+  padding: 20px; /* 内側に余白を追加 */
+  border-radius: 8px; /* フォームの角を丸くする */
+  box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+  /* max-width: 600px; /* 最大幅を600pxに設定 */
+  margin: 16px auto; /* 上下余白を調整して中央揃え */
+  /* margin-bottom: 20px;
+  /* width: 100%; /* 横幅を100%に設定 */
+}
+
+.new-income-form h2 {
+  font-size: 1.5rem; /* 見出しサイズを適度に設定 */
+  margin-bottom: 15px; /* 下に余白を追加 */
+  color: #333; /* 見出しの色を濃いグレーに設定 */
+  text-align: center; /* 中央揃え */
+
+}
+
+.new-income-form .form-group {
+  margin-bottom: 15px; /* 下に余白を追加 */
+}
+
+.new-income-form .form-control {
+  padding: 10px; /* 内側に余白を追加 */
+  font-size: 1rem; /* テキストのサイズを適切に設定 */
+  border: 1px solid #ced4da; /* 枠線を薄いグレーに設定 */
+  border-radius: 5px; /* 入力フィールドの角を丸くする */
+  width: 100%; /* 横幅を100%に設定 */
+}
+
+.new-income-form .btn {
+  width: 100%; /* ボタンをフォーム全体の幅に広げる */
+  padding: 10px; /* 内側に余白を追加 */
+  font-size: 1.2rem; /* テキストのサイズを統一 */
+  font-weight: bold; /* 太字で目立たせる */
+  border-radius: 5px; /* ボタンの角を丸くする */
+  background-color: #007bff; /* ボタンの背景色を青に設定 */
+  color: #ffffff; /* ボタンの文字色を白に設定 */
+  border: none; /* 枠線を除去 */
+  cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+
+/* ボタンのホバー時スタイル */
+/* ホバー時の色変化でクリック可能性を強調 */
+.new-income-form .btn:hover {
+  background-color: #0056b3; /* ホバー時の背景色を濃い青に設定 */
+}
+
+/* 共通スタイル: データカードの基本デザイン */
+/* カードの見た目を統一 */
+.data-display-item {
+  /* flex: 1 1 calc(50% - 16px); /* 横幅を50%で分割し、隙間を考慮 */
+  /* flex: 1 1 calc(33.333% - 16px); /* 横幅を33.333%に設定し、隙間を考慮 */
+  /* max-width: 280px; /* 最大幅を280pxに制限 */
+  text-align: center; /* テキストを中央揃え */
+  padding: 16px; /* 内側の余白を設定 */
+  background-color: #ffffff; /* 背景色を白に設定 */
+  border-radius: 8px; /* カードの角を丸くする */
+  box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+  /* margin: 8px auto; /* 上下余白を追加して中央揃え */
+  width: 100%;
+}
+
+/* 共通スタイル: データカードのタイトル */
+/* タイトルのスタイルを統一 */
+/*.data-display-item h2 {
+  font-size: 24px; /* タイトルサイズを適切に設定 */
+  /* margin-bottom: 1px; /* 下に余白を追加 */
+  /*color: #333; /* 濃いグレーの文字色 */
+/*}
+
+/* 共通スタイル: データカードの内容 */
+/* 各カードの内容部分を統一 */
+/*.data-display-item p {
+ /* font-size: 24px; /* 内容を目立たせるために大きく設定 */
+ /* font-weight: bold; /* 太字で強調 */
+ /* color: #333; /* 青色で強調 */
+/*}
+
+/* 修正: データカードの整列 */
+/* データカードのレイアウトを調整し、間隔を均等に配置 */
+.data-display-container {
+  display: flex; /* フレックスボックスで横並び */
+  flex-direction: column; /* カードを縦並びに */
+  /* flex-wrap: wrap; /* 横幅が狭い場合は折り返し */
+  gap: 16px; /* 各カードの間に隙間を設定 */
+  margin: 0 auto; /* 上下余白を調整して中央揃え */
+  /* max-width: 800px; /* 最大幅を統一 */
+  width: 100%; /* 横幅をデバイス幅に適応 */
+  /* margin-top: 20px; /* 上に余白を追加 */
+}
+
+/* データカードの個別スタイル */
+
+/* 今日の収入カード */
+.today-income-display p {
+  color: #333; /* 緑色で収入を強調 */
+  font-weight: bold; /* 太字で目立たせる */
+  font-size: 24px;
+}
+/* カードごとの個別スタイル */
+/* 今日の収入カード */
+.today-income-display h2 {
+  color: #28a745; /* 緑色で収入を強調 */
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/* 自分の時間カード */
+.my-time-display p {
+  color: #333; /* 青色で時間を強調 */
+  font-weight: bold; /* 太字で目立たせる */
+  font-size: 24px;
+}
+.my-time-display h2 {
+  color: #007bff; /* 緑色で収入を強調 */
+  font-size: 24px;
+  font-weight: bold; /* 太字で目立たせる */
+}
+
+/* 累計収入カード */
+.total-income-display p {
+  color: #333; /* 青色で時間を強調 */
+  font-weight: bold; /* 太字で目立たせる */
+  font-size: 24px;
+}
+
+/* 累計収入カードのタイトル */
+.total-income-display h2 {
+ font-size: 24px; /* タイトルを少し大きく設定 */
+ color: #bc1fdf;
+ font-weight: bold; /* 太字で目立たせる */
+}
+
+
+/* 設定ページのスタイル */
+.settings {
+  display: flex; /* フレックスボックスでレイアウト */
+  justify-content: center; /* 横方向に中央寄せ */
+  align-items: center; /* 縦方向に中央寄せ */
+  height: 100vh; /* 画面全体を占める高さに設定 */
+}
+
+.settings-form {
+  background: #ffffff; /* 背景色を白に設定 */
+  padding: 20px; /* 内側の余白を設定 */
+  border-radius: 5px; /* 角を丸くする */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 軽い影をつける */
+  width: 100%; /* 幅を100%に設定 */
+  max-width: 400px; /* 最大幅を400pxに制限 */
+}
+
+.settings-form h2 {
+  margin-bottom: 15px; /* 下に余白を追加 */
+  font-size: 1.5rem; /* 見出しを大きく設定 */
+}
+
+/* 404エラーページのスタイル */
+.error-404 {
+  display: flex; /* フレックスボックスでレイアウト */
+  justify-content: center; /* 横方向に中央寄せ */
+  align-items: center; /* 縦方向に中央寄せ */
+  height: 100vh; /* 画面全体を占める高さに設定 */
+  background-color: #f8f9fa; /* 背景色を薄いグレーに設定 */
+  text-align: center; /* テキストを中央寄せ */
+}
+
+.error-404 h1 {
+  font-size: 3rem; /* 見出しを大きく設定 */
+  color: #6c757d; /* 薄いグレーの文字色 */
+}
+
+.error-404 p {
+  font-size: 1.2rem; /* テキストを少し大きく設定 */
+  color: #6c757d; /* 薄いグレーの文字色 */
+}
+
+/* Responsive Design (レスポンシブ対応) */
+@media (max-width: 768px) {
+  .data-display-container {
+   /*flex-direction: column; /* カードを縦並びに */
+   /* align-items: center; /* 縦並び時に中央揃え */
+    gap: 12px; /* カード間のスペースを縮小 */
+  }
+  body {
+    min-height: 100vh; /* 画面全体の高さを確保 */
+  }
+  .data-display-item {
+    width: 100%; /* スマホでは幅を全体に広げる */
+    max-width: none; /* 最大幅を解除 */
+  }
+
+  .total-income-display {
+    font-size: 1.2rem; /* フォントサイズを調整 */
+    padding: 16px; /* 余白を減らしてコンパクトに */ 
+  } 
+  
+  /*.header-container {
+    width: 100%;
+    max-width: none; /* 幅制限を解除
+    flex-direction: column; /* 小さい画面では縦並びに
+    align-items: flex-start; /* 左揃え
+    gap: 8px; /* 各要素間の間隔を調整
+  } */
+
+  .body__container {
+    padding: 8px;
+    flex: 1; /* スペースをフレックスで埋める */
+  }
+
+  .content__container {
+    max-width: 100%; /* 親要素の幅に一致させる */
+    margin: 0 auto; /* 中央揃え */
+    padding: 16px; /* 必要に応じて余白を調整 */
+  }
+  .header-container, .body__container, .content__container {
+    padding: 12px;
+  }
+
+  /* .header-container {
+    max-width: 100%;
+  } */
+
+  .content__container {
+    padding: 12px;
+  }
+
+  .flash-messages .alert {
+    font-size: 0.9rem; /* 小さい画面用フォントサイズ */
+  }
+  .header-container {
+    /* flex-direction: row; /* 横並びに戻す */
+    /* justify-content: space-between; /* ロゴとボタンを両端に配置 */
+    /* align-items: center; /* 垂直方向に中央揃え */
+    /* padding: 8px 12px; /* ヘッダー全体の余白を減らす */
+   /*  width: 100%;
+    max-width: none; /* 幅制限を解除 */
+    flex-direction: column; /* 小さい画面では縦並びに */
+    align-items: flex-start; /* 左揃え */
+    gap: 8px; /* 各要素間の間隔を調整 */
+  }
+
+  .logo {
+    font-size: 1.2rem; /* ロゴのフォントサイズをやや小さめに調整 */
+  }
+
+  .nav-links {
+    /* flex-wrap: wrap; /* ボタンが横に収まらない場合に折り返す */
+    justify-content: center; /* ボタンを中央揃え */
+    /* gap: 6px; /* ボタン間の間隔を調整 */
+    width: 100%; /* 幅を100%に */
+    /* flex-direction: column; /* ボタンを縦並びに */
+    gap: 8px; /* ボタン間の間隔 */
+    
+  }
+
+  .nav-links a {
+    /* padding: 6px 8px; /* ボタンの内側余白をコンパクトに */
+    font-size: 0.75rem; /* ボタンのフォントサイズを調整 */
+    /* border-radius: 4px; /* ボタンの角を小さく丸める */
+    /* min-width: 90px; /* ボタンの最小幅を設定 */
+    /* text-align: center; /* テキストを中央揃え */
+    /* flex: 1 1 45%; /* ボタンの幅を調整 */
+    /* width: auto; /* 幅をデフォルトに */
+    /*max-width: none; /* 最大幅制限を解除 */
+    /* flex: none; /* ボタン幅をリセット */
+    width: 100%; /* ボタンを全幅に */
+    text-align: center; /* テキストを中央揃え */
+  }
+
+  .account-name {
+    text-align: left; /* アカウント名を左揃え */
+    max-width: 100px; /* 幅を広げる */
+  }
+
+  .footer-container {
+    padding: 12px 0; /* モバイル画面で少し余白を減らす */
+  }
+} 
+
+/* Railsが自動的に追加するfield_with_errorsのスタイルをリセット */
+/* Railsがエラーフィールドに追加するクラスのデフォルトスタイルをリセット */
+.field_with_errors {
+  display: inline; /* 必要であれば他のスタイルもリセット */
+  margin: 0; /* 必要に応じて調整 */
+  padding: 0;
+  border: none; /* ボーダーが追加されている場合はリセット */
+}
+
+/* エラーメッセージスタイル */
+/* フォームのエラーメッセージ用のデザイン */
+.error-alert {
+  color: #e62c3c; /* 赤色の文字 */
+  border: 1px solid #f5c2c7; /* 薄い赤色の枠線 */
+  padding: 10px; /* 内側の余白を設定 */
+  margin-bottom: 15px; /* 下に余白を追加 */
+  border-radius: 5px; /* 角を丸くする */
+}
+
+.error-message {
+  list-style: none; /* リストの箇条書きを除去 */
+  font-size: 0.9rem; /* 小さめのフォントサイズ */
+  margin: 5px 0; /* 上下に余白を設定 */
+}
+
+/* プロフィール編集ページ */
+.nav-links .btn-secondary {
+  background-color: #007bff; /* 背景色を黄色に設定 */
+  color: #ffffff; /* 文字色を濃いグレーに設定 */
+  text-decoration: none; /* 下線を除去 */
+  padding: 5px 10px; /* 内側の余白を設定 */
+  border-radius: 5px; /* ボタンの角を丸くする */
+  font-size: 0.9rem; /* フォントサイズを統一 */
+}
+
+.nav-links .btn-secondary:hover {
+  background-color: #007bff; /* ホバー時の背景色を濃い黄色に変更 */
+}
+
+/* ホーム画面のフラッシュメッセージ */
+.flash-messages .alert {
+  padding: 0px;
+  margin: 0 auto;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.alert-success {
+  /* background-color: #d4edda;*/
+  color: #155724;
+  /* border: 1px solid #c3e6cb;*/
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* アカウント削除ボタンのスタイル */
+.delete-account-container {
+  margin-top: 20px; /* 上に余白を追加 */
+  text-align: center; /* テキストを中央寄せ */
+}
+
+.delete-account-container .btn-danger {
+  display: inline-block; /* インラインブロック表示 */
+  padding: 12px 24px; /* ボタン内の余白を設定 */
+  border-radius: 5px; /* ボタンの角を丸くする */
+  font-size: 1rem; /* フォントサイズを設定 */
+  font-weight: bold; /* 太字に設定 */
+  text-decoration: none; /* 下線を除去 */
+  background-color: #e62c3c; /* 削除ボタンの赤色 */
+  color: #ffffff; /* ボタン文字を白色に設定 */
+  border: none; /* 枠線を除去 */
+  cursor: pointer; /* ポインターを表示 */
+  transition: background-color 0.3s ease; /* 背景色の遷移をスムーズに */
+}
+
+.delete-account-container .btn-danger:hover {
+  background-color: #c82333; /* ホバー時の濃い赤色 */
+}
+
+/* モーダル全体のスタイル */
+.modal {
+  display: none; /* デフォルトは非表示 */
+  position: fixed; /* 固定位置 */
+  z-index: 1000; /* モーダルを最前面に */
+  left: 0; /* 左端から */
+  top: 0; /* 上端から */
+  width: 100%; /* 画面幅全体 */
+  height: 100%; /* 画面高さ全体 */
+  overflow: auto; /* スクロール可能 */
+  background-color: rgba(0, 0, 0, 0.7); /* 背景を暗く半透明に */
+}
+
+/* モーダルの内容部分 */
+.modal-content {
+  background-color: #ffffff; /* 背景色を白に設定 */
+  margin: 15% auto; /* 上下中央に配置 */
+  padding: 20px; /* 内側の余白 */
+  border: 1px solid #ddd; /* 薄い枠線を追加 */
+  width: 90%; /* 幅を画面の90%に設定 */
+  max-width: 500px; /* 最大幅を500pxに制限 */
+  text-align: center; /* テキストを中央寄せ */
+  border-radius: 10px; /* 角を丸くする */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 影を追加 */
+  animation: fadeIn 0.3s ease-in-out; /* フェードインのアニメーション */
+}
+
+/* モーダル内のタイトル */
+.modal-content p {
+  font-size: 1.2rem; /* フォントサイズを少し大きめに */
+  color: #212529; /* 文字色を濃いグレーに設定 */
+  margin-bottom: 20px; /* 下に余白を追加 */
+}
+
+/* モーダル内のボタンのスタイルを統一 */
+.modal-content .btn {
+  display: inline-block; /* インラインブロックで表示 */
+  padding: 10px 20px; /* 内側の余白を追加 */
+  border-radius: 5px; /* ボタンの角を丸くする */
+  font-size: 1rem; /* フォントサイズを統一 */
+  text-decoration: none; /* 下線を除去 */
+  width: 120px; /* ボタンの幅を統一 */
+  text-align: center; /* テキストを中央寄せ */
+}
+
+/* キャンセルボタン */
+.modal-content .btn-secondary {
+  background-color: #6c757d; /* 灰色 */
+  color: #ffffff; /* 白文字 */
+  border: none; /* 枠線を除去 */
+  cursor: pointer; /* ポインターを表示 */
+}
+
+.modal-content .btn-secondary:hover {
+  background-color: #5a6268; /* 濃い灰色 */
+}
+
+/* 削除ボタン */
+.modal-content .btn-danger {
+  background-color: #e62c3c; /* 赤色 */
+  color: #ffffff; /* 白文字 */
+  border: none; /* 枠線を除去 */
+  cursor: pointer; /* ポインターを表示 */
+}
+
+.modal-content .btn-danger:hover {
+  background-color: #c82333; /* 濃い赤色 */
+}
+
+/* アニメーション */
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* 不透明度 0 */
+  }
+  to {
+    opacity: 1; /* 不透明度 1 */
+  }
+}

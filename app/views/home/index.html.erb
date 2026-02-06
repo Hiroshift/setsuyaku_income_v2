@@ -1,0 +1,39 @@
+<div class="body__container">
+  <div class="content__container">
+    <div class="new-income-form">
+      <h2>新しい節約金額を記録</h2>
+      <%= form_with url: new_income_path, method: :post, local: true, class: "income-form" do |f| %>
+        <!-- 金額入力フィールド -->
+        <div class="form-group">
+          <%= f.label :amount, "節約金額" %><br />
+          <%= f.number_field :amount, placeholder: "例: 500円", class: "form-control", required: true %>
+        </div>
+
+        <!-- 記録するボタン -->
+        <div class="form-group">
+          <%= f.submit "記録する", class: "btn btn-primary btn-block" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="data-display-container">
+      <!-- 今日の収入 -->
+      <div class="data-display-item today-income-display">
+        <h2>今日の収入</h2>
+        <p>¥<%= @today_income %></p>
+      </div>
+
+      <!-- 自分の時間 -->
+      <div class="data-display-item my-time-display">
+        <h2>取り戻した時間</h2>
+        <p><%= @virtual_work_time %>時間</p>
+      </div>
+      
+      <!-- 収入の累計 -->
+      <div class="data-display-item total-income-display">
+        <h2>収入の累計</h2>
+        <p>¥<%= @total_income %></p>
+      </div>
+    </div>
+  </div>
+</div>
