@@ -15,17 +15,17 @@
   <!-- ダッシュボード -->
   <div class="stats">
     <div class="stat-card stat-card--today">
-      <span class="stat-label">TODAY</span>
+      <span class="stat-label">今日の節約収入</span>
       <span class="stat-value">¥<%= number_with_delimiter(@today_income) %></span>
     </div>
 
     <div class="stat-card stat-card--time">
-      <span class="stat-label">TIME SAVED</span>
-      <span class="stat-value"><%= @virtual_work_time %>h</span>
+      <span class="stat-label">取り戻した時間</span>
+      <span class="stat-value"><%= @virtual_work_time %> 時間</span>
     </div>
 
     <div class="stat-card stat-card--total">
-      <span class="stat-label">TOTAL</span>
+      <span class="stat-label">累計の節約収入</span>
       <span class="stat-value">¥<%= number_with_delimiter(@total_income) %></span>
     </div>
   </div>
