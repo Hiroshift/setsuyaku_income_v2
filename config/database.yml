@@ -8,7 +8,7 @@ development:
   username: root
   password:
   host: localhost
-  database: setsuyaku_income_v2_development
+  database: setsuyaku_income_development
 
 test:
   <<: *default
@@ -16,7 +16,7 @@ test:
   username: root
   password:
   host: localhost
-  database: setsuyaku_income_v2_test
+  database: setsuyaku_income_test
 
 production:
   <<: *default
