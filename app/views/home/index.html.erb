@@ -1,9 +1,8 @@
 <% if user_signed_in? %>
 
-  <!-- ① 入力エリア：「収入に変換する」体験 -->
-  <div class="record-section">
+  <!-- 入力 -->
+  <div class="record">
     <p class="record-title">いくら節約しましたか？</p>
-    <p class="record-sub">節約した分だけ、あなたの収入になります</p>
     <%= form_with url: new_income_path, method: :post, local: true do |f| %>
       <div class="record-input-wrap">
         <span class="record-yen">¥</span>
@@ -13,129 +12,71 @@
     <% end %>
   </div>
 
-  <!-- ② ダッシュボード：変換の流れを見せる -->
-  <div class="conversion-flow">
-    <div class="flow-step">
-      <span class="flow-icon flow-icon--gold">¥</span>
-      <span class="flow-arrow">→</span>
-      <span class="flow-icon flow-icon--blue">⏱</span>
-      <span class="flow-arrow">→</span>
-      <span class="flow-icon flow-icon--purple">∑</span>
+  <!-- 今日 -->
+  <div class="today">
+    <div class="today-col">
+      <span class="today-value">¥<%= number_with_delimiter(@today_income) %></span>
+      <span class="today-label">今日の節約収入</span>
     </div>
-    <p class="flow-caption">節約 → 時間に変換 → 累計を蓄積</p>
-  </div>
-
-  <div class="stats">
-    <div class="stat-card stat-card--today">
-      <div class="stat-left">
-        <span class="stat-label">今日の節約収入</span>
-        <span class="stat-hint">節約した金額 ＝ 稼いだ金額</span>
-      </div>
-      <span class="stat-value">¥<%= number_with_delimiter(@today_income) %></span>
-    </div>
-
-    <div class="stat-card stat-card--time">
-      <div class="stat-left">
-        <span class="stat-label">取り戻した時間</span>
-        <span class="stat-hint">時給 ¥<%= number_with_delimiter(current_user.hourly_rate) %> で換算</span>
-      </div>
-      <span class="stat-value"><%= @virtual_work_time %></span>
-    </div>
-
-    <div class="stat-card stat-card--total">
-      <div class="stat-left">
-        <span class="stat-label">累計の節約収入</span>
-        <span class="stat-hint">これまでの全記録の合計</span>
-      </div>
-      <span class="stat-value">¥<%= number_with_delimiter(@total_income) %></span>
+    <div class="today-col">
+      <span class="today-value"><%= @virtual_work_time %></span>
+      <span class="today-label">取り戻した時間</span>
     </div>
   </div>
 
-  <!-- ③ 取り戻した人生 -->
+  <!-- 取り戻した人生 -->
   <% if @lifetime_minutes > 0 %>
-    <div class="life-section">
-      <div class="life-card">
-        <p class="life-card-label">取り戻した人生</p>
-        <p class="life-card-value"><%= @lifetime_display %></p>
-        <p class="life-card-sub">節約だけで、これだけの自由を手に入れました</p>
+    <div class="life">
+      <span class="life-label">取り戻した人生</span>
+      <span class="life-value"><%= @lifetime_display %></span>
+      <div class="life-meta">
+        <span>累計 ¥<%= number_with_delimiter(@total_income) %></span>
+        <% if @annual_projection.present? %>
+          <span class="life-meta-sep">·</span>
+          <span>年末まで <strong><%= @annual_projection %></strong> ペース</span>
+        <% end %>
       </div>
-
-      <% if @annual_projection.present? %>
-        <div class="projection-card">
-          <div class="projection-header">
-            <span class="projection-icon">📅</span>
-            <span class="projection-label"><%= Date.today.year %>年の予測</span>
-          </div>
-          <p class="projection-value"><%= @annual_projection %></p>
-          <p class="projection-sub">
-            平均 <%= @daily_avg_display %> の節約ペースなら、<br>
-            年末までに<strong><%= @annual_projection %></strong>の人生を取り戻せます
-          </p>
-        </div>
-      <% end %>
+    </div>
+  <% else %>
+    <div class="life">
+      <span class="life-label">累計の節約収入</span>
+      <span class="life-value">¥<%= number_with_delimiter(@total_income) %></span>
     </div>
   <% end %>
 
-  <!-- AIに聞く（ユーザーが選択） -->
+  <!-- AI提案（オプトイン） -->
   <% if @total_minutes > 0 %>
     <%= turbo_frame_tag "ai_suggestion" do %>
-      <div class="ai-ask">
-        <%= button_to "✨ #{@virtual_work_time}の使い方をAIに聞く", suggest_path,
-              class: "ai-ask-btn",
-              data: { turbo_frame: "ai_suggestion" } %>
-      </div>
+      <%= button_to "この時間の使い方をAIに聞く →", suggest_path,
+            class: "ai-link",
+            data: { turbo_frame: "ai_suggestion" } %>
     <% end %>
   <% end %>
 
 <% else %>
 
-  <!-- ③ ヒーロー：具体例で「なるほど！」を作る -->
+  <!-- ヒーロー -->
   <div class="hero">
     <h2 class="hero-headline">
-      節約は、<span class="hero-gold">収入</span>だ。
+      節約は、<br><span class="hero-accent">収入</span>だ。
     </h2>
     <p class="hero-sub">
       節約した金額を「収入」と「取り戻した時間」に変換。<br>
       毎日の小さな節約が、どれだけの価値か実感できます。
     </p>
 
-    <!-- 具体例 -->
-    <div class="example-box">
-      <p class="example-title">例えば…</p>
-      <div class="example-flow">
-        <div class="example-step">
-          <span class="example-label">コンビニ弁当を自炊に</span>
-          <span class="example-value example-value--save">¥500 節約</span>
-        </div>
-        <span class="example-arrow">↓</span>
-        <div class="example-step">
-          <span class="example-label">それはつまり</span>
-          <span class="example-value example-value--income">¥500 の収入</span>
-        </div>
-        <span class="example-arrow">↓</span>
-        <div class="example-step">
-          <span class="example-label">時給 ¥1,200 なら</span>
-          <span class="example-value example-value--time">25分の自由を取り戻した</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-features">
-      <div class="hero-feature">
-        <div class="hero-feature-dot hero-feature-dot--gold">¥</div>
-        <span class="hero-feature-text">節約金額をサッと記録</span>
-      </div>
-      <div class="hero-feature">
-        <div class="hero-feature-dot hero-feature-dot--blue">⏱</div>
-        <span class="hero-feature-text">あなたの時給で「時間」に変換</span>
-      </div>
-      <div class="hero-feature">
-        <div class="hero-feature-dot hero-feature-dot--purple">∑</div>
-        <span class="hero-feature-text">累計の節約収入を実感</span>
-      </div>
+    <div class="hero-example">
+      <p>コンビニ弁当を自炊に変えて ¥500 節約</p>
+      <p class="hero-example-result">→ ¥500 の収入、25分の自由を取り戻した</p>
     </div>
 
     <%= link_to "無料ではじめる", new_user_registration_path, class: "hero-cta" %>
+
+    <ul class="hero-list">
+      <li>節約金額をサッと記録</li>
+      <li>あなたの時給で「時間」に変換</li>
+      <li>累計の節約収入を実感</li>
+    </ul>
   </div>
 
 <% end %>

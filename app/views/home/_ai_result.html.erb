@@ -1,13 +1,10 @@
 <%= turbo_frame_tag "ai_suggestion" do %>
-  <div class="ai-suggestion">
-    <div class="ai-suggestion-header">
-      <span class="ai-suggestion-icon">✨</span>
-      <span class="ai-suggestion-title"><%= minutes %>分の自由時間で…</span>
-    </div>
-    <p class="ai-suggestion-text"><%= suggestion %></p>
-    <div class="ai-suggestion-actions">
-      <%= button_to "もう一つ聞いてみる", suggest_path,
-            class: "ai-retry-btn",
+  <div class="ai-result">
+    <p class="ai-result-label"><%= minutes %>分の自由時間で</p>
+    <p class="ai-result-text"><%= suggestion %></p>
+    <div class="ai-result-footer">
+      <%= button_to "別の提案を聞く", suggest_path,
+            class: "ai-retry",
             data: { turbo_frame: "ai_suggestion" } %>
     </div>
   </div>
