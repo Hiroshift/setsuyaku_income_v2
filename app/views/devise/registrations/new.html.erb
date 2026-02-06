@@ -26,10 +26,27 @@
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "field-input", placeholder: "もう一度入力" %>
     </div>
 
-    <div class="field-group">
-      <label class="field-label">あなたの時給（円）</label>
-      <%= f.number_field :hourly_rate, class: "field-input", placeholder: "1200", min: 0, inputmode: "numeric" %>
-      <span class="field-hint">節約を時間に換算するために使います</span>
+    <div class="wage-section" data-controller="wage">
+      <p class="field-label">あなたの時給</p>
+      <span class="field-hint">節約を「取り戻した時間」に換算するために使います</span>
+
+      <div class="wage-tabs">
+        <button type="button" class="wage-tab wage-tab--active" data-wage-target="tabHourly" data-action="wage#switchHourly">時給で入力</button>
+        <button type="button" class="wage-tab" data-wage-target="tabMonthly" data-action="wage#switchMonthly">月収から算出</button>
+      </div>
+
+      <div data-wage-target="hourlyGroup">
+        <div class="field-group">
+          <%= f.number_field :hourly_rate, class: "field-input", placeholder: "例）1200", min: 0, inputmode: "numeric", data: { wage_target: "hourlyInput" } %>
+        </div>
+      </div>
+
+      <div data-wage-target="monthlyGroup" style="display: none">
+        <div class="field-group">
+          <input type="number" class="field-input" placeholder="例）250000" min="0" inputmode="numeric" data-action="input->wage#calculate">
+          <span class="wage-computed" data-wage-target="computed"></span>
+        </div>
+      </div>
     </div>
 
     <%= f.submit "アカウントを作成", class: "auth-submit" %>

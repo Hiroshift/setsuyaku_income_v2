@@ -503,6 +503,47 @@ header {
 
 .field-hint { font-size: 0.7rem; color: var(--ink-3); }
 
+/* 時給 / 月収 切り替え */
+.wage-section {
+  margin-bottom: 12px;
+}
+
+.wage-tabs {
+  display: flex;
+  gap: 0;
+  margin: 10px 0 12px;
+  background: var(--bg-2);
+  border-radius: var(--radius);
+  padding: 3px;
+}
+
+.wage-tab {
+  flex: 1;
+  padding: 8px 0;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--ink-3);
+  background: transparent;
+  border: none;
+  border-radius: calc(var(--radius) - 2px);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.wage-tab--active {
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.wage-computed {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
 .auth-submit {
   width: 100%;
   padding: 13px;
