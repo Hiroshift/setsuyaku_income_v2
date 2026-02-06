@@ -47,6 +47,7 @@
     <div class="page">
       <main class="page-body">
         <% flash.each do |key, message| %>
+          <% next if key == "ai_suggestion" %>
           <div class="flash <%= key == 'notice' ? 'flash--success' : 'flash--error' %>">
             <%= message %>
           </div>

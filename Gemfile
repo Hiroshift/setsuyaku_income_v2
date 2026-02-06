@@ -83,3 +83,6 @@ group :development do
 end
 
 gem 'devise'
+
+# 環境変数の管理
+gem 'dotenv-rails', groups: [:development, :test]

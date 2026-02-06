@@ -39,6 +39,7 @@ class HomeController < ApplicationController
       if current_user.recordings.create(amount: amount, recorded_date: Date.today)
         # 変換情報をフラッシュメッセージに含める
         message = "¥#{amount.to_fs(:delimited)}の節約収入を獲得！"
+        minutes = 0
         if current_user.hourly_rate.positive?
           minutes = (amount.to_f / current_user.hourly_rate * 60).round
           if minutes >= 60
@@ -51,6 +52,12 @@ class HomeController < ApplicationController
           message += " （#{time_str}の自由を取り戻しました）"
         end
         flash[:notice] = message
+
+        # Gemini AIに「取り戻した時間の使い方」を提案してもらう
+        if minutes > 0
+          suggestion = GeminiService.suggest_time_usage(minutes: minutes, amount: amount)
+          flash[:ai_suggestion] = suggestion if suggestion.present?
+        end
       else
         flash[:alert] = '記録に失敗しました。もう一度お試しください。'
       end

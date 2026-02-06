@@ -51,6 +51,17 @@
     </div>
   </div>
 
+  <% if flash[:ai_suggestion].present? %>
+    <!-- AIからの提案 -->
+    <div class="ai-suggestion">
+      <div class="ai-suggestion-header">
+        <span class="ai-suggestion-icon">✨</span>
+        <span class="ai-suggestion-title">取り戻した時間の使い方</span>
+      </div>
+      <p class="ai-suggestion-text"><%= flash[:ai_suggestion] %></p>
+    </div>
+  <% end %>
+
 <% else %>
 
   <!-- ③ ヒーロー：具体例で「なるほど！」を作る -->

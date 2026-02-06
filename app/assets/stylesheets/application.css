@@ -464,6 +464,59 @@ header {
 .stat-card--total .stat-label { color: var(--purple); }
 
 /* ========================================
+   AI提案カード
+   ======================================== */
+
+.ai-suggestion {
+  margin-top: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, #fdf6e3 0%, #fef9ef 50%, #f0f7ff 100%);
+  border: 1px solid rgba(184, 134, 11, 0.15);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  animation: fadeSlide 0.5s var(--ease) both;
+  animation-delay: 0.2s;
+}
+
+.ai-suggestion::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--blue), var(--purple));
+}
+
+.ai-suggestion-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.ai-suggestion-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.ai-suggestion-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.02em;
+}
+
+.ai-suggestion-text {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+
+/* ========================================
    ヒーローセクション（未ログイン）
    ======================================== */
 
