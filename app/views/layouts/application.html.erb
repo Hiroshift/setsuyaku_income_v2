@@ -2,60 +2,53 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- ビューポート設定 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="description" content="節約を収入として可視化するアプリ">
-    <meta name="author" content="SetsuyakuIncome Developer">
+    <meta name="author" content="Hiroshift">
     <title>節約は収入</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <!-- CSS -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    
-    <!-- JavaScript -->
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <!-- 全体のコンテナ開始 -->
     <div class="wrapper">
       <!-- ヘッダー -->
-      <header class="header">
+      <header>
         <div class="header-container">
-          <!-- ロゴとアプリ名 -->
           <h1 class="logo">
-            <a href="<%= root_path %>">節約は収入</a>
+            <a href="<%= root_path %>">🌱 節約は収入</a>
           </h1>
-          <!-- ナビゲーションメニュー -->
           <nav class="nav-links">
             <% if user_signed_in? %>
-              <!-- ユーザー名の表示 -->
-              <span class="account-name"><%= current_user.nickname %>さん！</span>
+              <span class="account-name"><%= current_user.nickname %> さん</span>
               <% unless controller_name == "registrations" && action_name == "edit" %>
-                <!-- プロフィール編集リンク -->
                 <%= link_to "プロフィール編集", edit_user_registration_path, class: "btn-secondary" %>
               <% end %>
-              <!-- ログアウトリンク -->
               <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn-logout" %>
             <% else %>
               <% if controller_name == "registrations" && action_name == "new" %>
-                <!-- サインアップ画面ではログインボタンを非表示 -->
+                <%= link_to "ログイン", new_user_session_path, class: "btn-secondary" %>
               <% elsif controller_name == "sessions" && action_name == "new" %>
-                <!-- ログイン画面では新規登録リンクのみ表示 -->
                 <%= link_to "新規登録", new_user_registration_path, class: "btn-primary" %>
               <% else %>
-                <!-- 非ログイン状態で通常のリンク表示 -->
                 <%= link_to "新規登録", new_user_registration_path, class: "btn-primary" %>
-                <%= link_to "ログイン", new_user_session_path, class: "btn-primary" %>
+                <%= link_to "ログイン", new_user_session_path, class: "btn-secondary" %>
               <% end %>
             <% end %>
           </nav>
         </div>
       </header>
 
-      <!-- コンテンツ全体のコンテナ -->
+      <!-- メインコンテンツ -->
       <main class="body__container">
-        <!-- フラッシュメッセージ -->
         <div class="flash-messages">
           <% flash.each do |key, message| %>
             <div class="alert <%= key == 'notice' ? 'alert-success' : 'alert-danger' %>">
@@ -63,8 +56,7 @@
             </div>
           <% end %>
         </div>
-        
-        <!-- メインコンテンツ -->
+
         <div class="content__container">
           <%= yield %>
         </div>
@@ -73,10 +65,9 @@
       <!-- フッター -->
       <footer class="footer">
         <div class="footer-container">
-          <p>&copy; <%= Date.today.year %> 節約は収入. All Rights Reserved.</p>
+          <p>&copy; <%= Date.today.year %> 節約は収入 — Hiroshift</p>
         </div>
       </footer>
     </div>
-    <!-- 全体のコンテナ終了 -->
   </body>
 </html>
