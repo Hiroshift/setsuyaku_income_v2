@@ -2,9 +2,13 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="description" content="節約を収入として可視化するアプリ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="description" content="節約を収入として可視化するモバイルアプリ">
     <meta name="author" content="Hiroshift">
+    <meta name="theme-color" content="#0d9488">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="節約は収入">
     <title>節約は収入</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -28,9 +32,9 @@
           </h1>
           <nav class="nav-links">
             <% if user_signed_in? %>
-              <span class="account-name"><%= current_user.nickname %> さん</span>
+              <span class="account-name"><%= current_user.nickname %></span>
               <% unless controller_name == "registrations" && action_name == "edit" %>
-                <%= link_to "プロフィール編集", edit_user_registration_path, class: "btn-secondary" %>
+                <%= link_to "編集", edit_user_registration_path, class: "btn-secondary" %>
               <% end %>
               <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn-logout" %>
             <% else %>
@@ -65,7 +69,7 @@
       <!-- フッター -->
       <footer class="footer">
         <div class="footer-container">
-          <p>&copy; <%= Date.today.year %> 節約は収入 — Hiroshift</p>
+          <p>&copy; <%= Date.today.year %> 節約は収入</p>
         </div>
       </footer>
     </div>
