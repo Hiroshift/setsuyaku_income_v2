@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_06_130149) do
+ActiveRecord::Schema[7.0].define(version: 2026_02_06_000000) do
   create_table "recordings", charset: "utf8", force: :cascade do |t|
     t.integer "amount", null: false
     t.date "recorded_date", null: false
@@ -25,7 +25,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_06_130149) do
     t.string "encrypted_password", default: "", null: false
     t.string "nickname", null: false
     t.integer "hourly_rate", null: false
-    t.integer "total_income", default: 0, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
