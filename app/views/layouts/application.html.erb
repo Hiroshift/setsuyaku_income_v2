@@ -25,6 +25,9 @@
         <nav class="nav-actions">
           <% if user_signed_in? %>
             <span class="nav-user"><%= current_user.nickname %></span>
+            <% unless controller_name == "history" %>
+              <%= link_to "記録", history_path, class: "nav-pill nav-pill--ghost" %>
+            <% end %>
             <% unless controller_name == "registrations" && action_name == "edit" %>
               <%= link_to "設定", edit_user_registration_path, class: "nav-pill nav-pill--ghost" %>
             <% end %>

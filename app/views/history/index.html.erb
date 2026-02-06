@@ -1,0 +1,60 @@
+<!-- サマリー -->
+<div class="hist-summary">
+  <p class="hist-since"><%= @days_since_start %>日目</p>
+
+  <div class="hist-pair">
+    <div class="hist-pair-item">
+      <span class="hist-pair-num">¥<%= number_with_delimiter(@total_income) %></span>
+      <span class="hist-pair-sub">総節約収入</span>
+    </div>
+    <div class="hist-pair-item">
+      <span class="hist-pair-num hist-pair-num--accent"><%= @lifetime_display %></span>
+      <span class="hist-pair-sub">取り戻した人生</span>
+    </div>
+  </div>
+
+  <p class="hist-meta"><%= @recording_days %>日記録</p>
+</div>
+
+<hr class="sep">
+
+<!-- 月別の推移 -->
+<% if @months.any? %>
+  <div class="hist-section">
+    <p class="hist-heading">月別の推移</p>
+
+    <% @months.each do |m| %>
+      <div class="hist-month">
+        <div class="hist-month-head">
+          <span class="hist-month-label"><%= m[:label] %></span>
+          <span class="hist-month-amount">¥<%= number_with_delimiter(m[:amount]) %></span>
+        </div>
+        <div class="hist-bar-track">
+          <div class="hist-bar-fill" style="width: <%= m[:percent] %>%"></div>
+        </div>
+        <span class="hist-month-time"><%= m[:time] %></span>
+      </div>
+    <% end %>
+  </div>
+
+  <hr class="sep">
+<% end %>
+
+<!-- 最近の記録 -->
+<% if @recent.any? %>
+  <div class="hist-section">
+    <p class="hist-heading">最近の記録</p>
+
+    <div class="hist-list">
+      <% @recent.each do |r| %>
+        <div class="hist-row">
+          <span class="hist-row-date"><%= r[:date].strftime("%-m/%-d") %></span>
+          <span class="hist-row-amount">¥<%= number_with_delimiter(r[:amount]) %></span>
+          <span class="hist-row-time"><%= r[:time] %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to "← ホーム", root_path, class: "back-link" %>

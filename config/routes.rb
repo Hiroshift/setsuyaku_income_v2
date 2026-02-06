@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   root 'home#index'
   post "new_income", to: "home#create"
   post "suggest", to: "home#suggest"
+  get "history", to: "history#index"
 end

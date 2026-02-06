@@ -678,6 +678,147 @@ header {
 .modal-btns .btn-destroy:active { opacity: 0.8; }
 
 /* ========================================
+   記録ページ
+   ======================================== */
+
+/* サマリー */
+.hist-summary {
+  text-align: center;
+  padding: 20px 0 24px;
+}
+
+.hist-since {
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  margin-bottom: 16px;
+}
+
+.hist-pair {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.hist-pair-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.hist-pair-num {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.hist-pair-num--accent { color: var(--accent); }
+
+.hist-pair-sub {
+  font-size: 0.68rem;
+  color: var(--ink-3);
+}
+
+.hist-meta {
+  font-size: 0.72rem;
+  color: var(--ink-3);
+}
+
+/* セクション */
+.hist-section {
+  padding: 20px 0;
+}
+
+.hist-heading {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  margin-bottom: 16px;
+}
+
+/* 月別 */
+.hist-month {
+  margin-bottom: 18px;
+}
+
+.hist-month:last-child { margin-bottom: 0; }
+
+.hist-month-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+
+.hist-month-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.hist-month-amount {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.hist-bar-track {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.hist-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  min-width: 4px;
+}
+
+.hist-month-time {
+  font-size: 0.68rem;
+  color: var(--ink-3);
+}
+
+/* 記録一覧 */
+.hist-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.hist-row {
+  display: flex;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.hist-row:last-child { border-bottom: none; }
+
+.hist-row-date {
+  width: 48px;
+  font-size: 0.78rem;
+  color: var(--ink-3);
+  flex-shrink: 0;
+}
+
+.hist-row-amount {
+  flex: 1;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.hist-row-time {
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  text-align: right;
+}
+
+/* ========================================
    アニメーション
    ======================================== */
 

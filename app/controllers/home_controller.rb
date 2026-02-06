@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  include TimeFormatting
   before_action :authenticate_user!, only: [:create, :suggest]
 
   def index
@@ -67,38 +68,5 @@ class HomeController < ApplicationController
     end
 
     render partial: "home/ai_result", locals: { suggestion: @suggestion, minutes: minutes }
-  end
-
-  private
-
-  def calculate_minutes(amount)
-    return 0 unless current_user.hourly_rate.positive?
-    (amount.to_f / current_user.hourly_rate * 60).round
-  end
-
-  def format_time(total_minutes)
-    hours = total_minutes / 60
-    mins = total_minutes % 60
-    if hours > 0 && mins > 0
-      "#{hours}時間#{mins}分"
-    elsif hours > 0
-      "#{hours}時間"
-    else
-      "#{mins}分"
-    end
-  end
-
-  # 日数を含む大きな時間表現（累計・プロジェクション用）
-  def format_life_time(total_minutes)
-    days = total_minutes / (60 * 24)
-    remaining = total_minutes % (60 * 24)
-    hours = remaining / 60
-    mins = remaining % 60
-
-    parts = []
-    parts << "#{days}日" if days > 0
-    parts << "#{hours}時間" if hours > 0
-    parts << "#{mins}分" if mins > 0 && days == 0  # 日数があるときは分は省略
-    parts.empty? ? "0分" : parts.join
   end
 end
