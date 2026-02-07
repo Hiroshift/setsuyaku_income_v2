@@ -1,0 +1,28 @@
+<div class="welcome">
+  <p class="welcome-greeting">ようこそ、<%= @nickname %>さん。</p>
+
+  <div class="welcome-rate">
+    <p class="welcome-rate-label">あなたの1時間は</p>
+    <p class="welcome-rate-value">¥<%= number_with_delimiter(@hourly_rate) %></p>
+  </div>
+
+  <% if @examples.any? %>
+    <p class="welcome-intro">つまり、</p>
+
+    <div class="welcome-examples">
+      <% @examples.each do |ex| %>
+        <div class="welcome-ex-row">
+          <span class="welcome-ex-amount">¥<%= number_with_delimiter(ex[:amount]) %>の節約</span>
+          <span class="welcome-ex-arrow">=</span>
+          <span class="welcome-ex-time"><%= ex[:time] %>の自由</span>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <p class="welcome-message">
+    さあ、今日の節約を<br>記録してみましょう。
+  </p>
+
+  <%= link_to "最初の記録をする", root_path, class: "welcome-cta" %>
+</div>

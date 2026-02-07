@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   include TimeFormatting
-  before_action :authenticate_user!, only: [:create, :suggest]
+  before_action :authenticate_user!, only: [:create, :suggest, :welcome]
 
   def index
     today = Date.today
@@ -53,6 +53,22 @@ class HomeController < ApplicationController
       flash[:alert] = '節約金額を正しく入力してください。'
     end
     redirect_to root_path
+  end
+
+  # 初回登録後のウェルカム画面
+  def welcome
+    @nickname = current_user.nickname
+    @hourly_rate = current_user.hourly_rate
+
+    if @hourly_rate.positive?
+      # 3段階の換算例を計算
+      @examples = [100, 500, 1000].map do |amount|
+        minutes = (amount.to_f / @hourly_rate * 60).round
+        { amount: amount, time: format_time(minutes) }
+      end
+    else
+      @examples = []
+    end
   end
 
   # Turbo Frame で呼ばれる：AIに時間の使い方を聞く
