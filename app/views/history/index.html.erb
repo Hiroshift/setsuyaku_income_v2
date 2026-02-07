@@ -5,44 +5,46 @@
   <p class="hist-hero-meta"><%= @days_since_start %>日間で ¥<%= number_with_delimiter(@total_income) %> 節約</p>
 </div>
 
-<!-- これだけの人生でできること -->
-<% if @life_equivalents.any? %>
-  <div class="hist-equiv">
-    <p class="hist-equiv-intro">この時間があれば</p>
-    <% @life_equivalents.each do |eq| %>
-      <div class="hist-equiv-row">
-        <span class="hist-equiv-text"><%= eq[:text] %></span>
-        <span class="hist-equiv-count"><%= eq[:count] %>回</span>
-      </div>
-    <% end %>
-  </div>
-<% end %>
-
-<hr class="sep">
-
-<!-- 月別の成長 -->
-<% if @months.any? %>
-  <div class="hist-section">
-    <p class="hist-heading">月別のあゆみ</p>
-
-    <% @months.each do |m| %>
-      <div class="hist-month">
-        <div class="hist-month-head">
-          <span class="hist-month-label"><%= m[:label] %></span>
-          <span class="hist-month-time"><%= m[:time] %></span>
+<% if current_user.premium? %>
+  <!-- これだけの人生でできること（プレミアム） -->
+  <% if @life_equivalents.any? %>
+    <div class="hist-equiv">
+      <p class="hist-equiv-intro">この時間があれば</p>
+      <% @life_equivalents.each do |eq| %>
+        <div class="hist-equiv-row">
+          <span class="hist-equiv-text"><%= eq[:text] %></span>
+          <span class="hist-equiv-count"><%= eq[:count] %>回</span>
         </div>
-        <div class="hist-bar-track">
-          <div class="hist-bar-fill" style="width: <%= m[:percent] %>%"></div>
-        </div>
-        <span class="hist-month-amount">¥<%= number_with_delimiter(m[:amount]) %></span>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% end %>
 
   <hr class="sep">
+
+  <!-- 月別のあゆみ（プレミアム） -->
+  <% if @months.any? %>
+    <div class="hist-section">
+      <p class="hist-heading">月別のあゆみ</p>
+
+      <% @months.each do |m| %>
+        <div class="hist-month">
+          <div class="hist-month-head">
+            <span class="hist-month-label"><%= m[:label] %></span>
+            <span class="hist-month-time"><%= m[:time] %></span>
+          </div>
+          <div class="hist-bar-track">
+            <div class="hist-bar-fill" style="width: <%= m[:percent] %>%"></div>
+          </div>
+          <span class="hist-month-amount">¥<%= number_with_delimiter(m[:amount]) %></span>
+        </div>
+      <% end %>
+    </div>
+
+    <hr class="sep">
+  <% end %>
 <% end %>
 
-<!-- 最近の成果 -->
+<!-- 最近の記録（全ユーザー共通） -->
 <% if @recent.any? %>
   <div class="hist-section">
     <p class="hist-heading">最近の記録</p>
@@ -65,6 +67,11 @@
       <% end %>
     </div>
   </div>
+<% end %>
+
+<% unless current_user.premium? %>
+  <hr class="sep">
+  <%= render "shared/premium_gate" %>
 <% end %>
 
 <%= link_to "← ホーム", root_path, class: "back-link" %>

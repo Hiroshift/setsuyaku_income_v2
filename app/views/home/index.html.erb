@@ -46,16 +46,24 @@
       <p class="life-above">取り戻した人生</p>
       <p class="life-num"><%= @lifetime_display %></p>
       <p class="life-below">
-        累計 ¥<%= number_with_delimiter(@total_income) %><% if @annual_projection.present? %> · 年末まで<%= @annual_projection %>ペース<% end %>
+        累計 ¥<%= number_with_delimiter(@total_income) %>
+        <% if current_user.premium? && @annual_projection.present? %>
+          · 年末まで<%= @annual_projection %>ペース
+        <% end %>
       </p>
     </div>
 
-    <% if @total_minutes > 0 %>
-      <%= turbo_frame_tag "ai_suggestion" do %>
-        <%= button_to "この時間の使い方をAIに聞く →", suggest_path,
-              class: "ai-text-link",
-              data: { turbo_frame: "ai_suggestion" } %>
+    <% if current_user.premium? %>
+      <% if @total_minutes > 0 %>
+        <%= turbo_frame_tag "ai_suggestion" do %>
+          <%= button_to "この時間の使い方をAIに聞く →", suggest_path,
+                class: "ai-text-link",
+                data: { turbo_frame: "ai_suggestion" } %>
+        <% end %>
       <% end %>
+    <% else %>
+      <hr class="sep">
+      <%= render "shared/premium_gate" %>
     <% end %>
   <% else %>
     <hr class="sep">

@@ -6,6 +6,10 @@ class User < ApplicationRecord
 
   has_many :recordings, dependent: :destroy
 
+  def premium?
+    premium
+  end
+
   validates :nickname, presence: true, length: { maximum: 50 }
   validates :hourly_rate, presence: true, numericality: { greater_than_or_equal_to: 0 }
   # パスワードのバリデーションを条件付きに設定
