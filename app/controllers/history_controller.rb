@@ -19,9 +19,16 @@ class HistoryController < ApplicationController
     @life_equivalents = build_life_equivalents(@total_minutes)
 
     # --- 月別集計 ---
+    # MySQL と PostgreSQL の両方に対応
+    group_sql = if ActiveRecord::Base.connection.adapter_name =~ /PostgreSQL/i
+                  "TO_CHAR(recorded_date, 'YYYY-MM')"
+                else
+                  "DATE_FORMAT(recorded_date, '%Y-%m')"
+                end
+
     monthly_data = all_recordings
       .reorder(nil)
-      .group("DATE_FORMAT(recorded_date, '%Y-%m')")
+      .group(group_sql)
       .sum(:amount)
       .sort_by { |k, _| k }
       .reverse
