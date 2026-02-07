@@ -53,17 +53,12 @@
       </p>
     </div>
 
-    <% if current_user.premium? %>
-      <% if @total_minutes > 0 %>
-        <%= turbo_frame_tag "ai_suggestion" do %>
-          <%= button_to "この時間の使い方をAIに聞く →", suggest_path,
-                class: "ai-text-link",
-                data: { turbo_frame: "ai_suggestion" } %>
-        <% end %>
+    <% if current_user.premium? && @total_minutes > 0 %>
+      <%= turbo_frame_tag "ai_suggestion" do %>
+        <%= button_to "この時間の使い方をAIに聞く →", suggest_path,
+              class: "ai-text-link",
+              data: { turbo_frame: "ai_suggestion" } %>
       <% end %>
-    <% else %>
-      <hr class="sep">
-      <%= render "shared/premium_gate" %>
     <% end %>
   <% else %>
     <hr class="sep">
@@ -72,6 +67,11 @@
       <p class="life-above">累計の節約収入</p>
       <p class="life-num life-num--plain">¥<%= number_with_delimiter(@total_income) %></p>
     </div>
+  <% end %>
+
+  <% unless current_user.premium? %>
+    <hr class="sep">
+    <%= render "shared/premium_gate" %>
   <% end %>
 
 <% else %>
