@@ -22,7 +22,7 @@
         <button type="button" class="key key--sub" data-action="amount#del">←</button>
       </div>
 
-      <%= f.submit "収入に変換する", class: "record-btn" %>
+      <%= f.submit "時間に変える", class: "record-btn" %>
     <% end %>
   </div>
 
@@ -69,24 +69,24 @@
 <% else %>
 
   <div class="hero">
-    <p class="hero-kicker">節約は、</p>
-    <h2 class="hero-big">収入だ。</h2>
+    <p class="hero-kicker">あなたの1時間は、</p>
+    <h2 class="hero-big">いくらですか？</h2>
     <p class="hero-body">
-      節約した金額を「収入」と「取り戻した時間」に変換。
-      毎日の小さな節約が、どれだけの価値か実感できます。
+      節約したお金は「収入」になる。
+      そして、その収入は「自由な時間」に変わる。
     </p>
 
     <div class="hero-ex">
-      <p class="hero-ex-line">コンビニ弁当を自炊に変えて ¥500 節約</p>
-      <p class="hero-ex-line hero-ex-strong">→ ¥500 の収入、25分の自由を取り戻した</p>
+      <p class="hero-ex-line">コンビニ弁当をやめて自炊した</p>
+      <p class="hero-ex-line hero-ex-strong">→ ¥500の収入。25分の自由を、取り戻した。</p>
     </div>
 
-    <%= link_to "無料ではじめる", new_user_registration_path, class: "hero-cta" %>
+    <%= link_to "自分の時間を知る", new_user_registration_path, class: "hero-cta" %>
 
     <ul class="hero-notes">
-      <li>節約金額をサッと記録</li>
-      <li>あなたの時給で「時間」に変換</li>
-      <li>取り戻した人生を可視化</li>
+      <li>節約した金額をサッと入力</li>
+      <li>あなたの時給で「時間」に換算</li>
+      <li>取り戻した人生が見えてくる</li>
     </ul>
   </div>
 

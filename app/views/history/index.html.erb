@@ -8,7 +8,7 @@
 <!-- これだけの人生でできること -->
 <% if @life_equivalents.any? %>
   <div class="hist-equiv">
-    <p class="hist-equiv-intro">これだけあれば</p>
+    <p class="hist-equiv-intro">この時間があれば</p>
     <% @life_equivalents.each do |eq| %>
       <div class="hist-equiv-row">
         <span class="hist-equiv-text"><%= eq[:text] %></span>
@@ -23,7 +23,7 @@
 <!-- 月別の成長 -->
 <% if @months.any? %>
   <div class="hist-section">
-    <p class="hist-heading">月別の成長</p>
+    <p class="hist-heading">月別のあゆみ</p>
 
     <% @months.each do |m| %>
       <div class="hist-month">
@@ -45,7 +45,7 @@
 <!-- 最近の成果 -->
 <% if @recent.any? %>
   <div class="hist-section">
-    <p class="hist-heading">最近の成果</p>
+    <p class="hist-heading">最近の記録</p>
 
     <div class="hist-list">
       <% @recent.each do |r| %>
