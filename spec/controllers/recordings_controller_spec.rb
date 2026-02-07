@@ -1,1 +1,1 @@
-# このファイルは将来的に使用される可能性があります。
+# requestスペック (spec/requests/history_spec.rb) に移行済み

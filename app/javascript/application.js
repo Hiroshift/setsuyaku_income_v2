@@ -2,6 +2,20 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
+// ── Service Worker 登録 ──
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/serviceworker.js", { scope: "/" })
+      .then((reg) => {
+        console.log("[SW] 登録成功:", reg.scope);
+      })
+      .catch((err) => {
+        console.warn("[SW] 登録失敗:", err);
+      });
+  });
+}
+
 document.addEventListener("turbo:load", () => {
   const deleteAccountBtn = document.getElementById("delete-account-btn");
   const deleteConfirmModal = document.getElementById("delete-confirm-modal");

@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_02_07_003344) do
+ActiveRecord::Schema[7.0].define(version: 2026_02_07_072339) do
   create_table "recordings", charset: "utf8", force: :cascade do |t|
     t.integer "amount", null: false
     t.date "recorded_date", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "note"
     t.index ["user_id"], name: "index_recordings_on_user_id"
   end
 

@@ -6,6 +6,7 @@
 
     <%= form_with url: new_income_path, method: :post, local: true do |f| %>
       <%= f.hidden_field :amount, value: "", data: { amount_target: "hidden" } %>
+      <%= f.hidden_field :recorded_date, value: Date.today.to_s, data: { amount_target: "dateHidden" } %>
 
       <div class="keypad">
         <button type="button" class="key" data-key="1" data-action="amount#press">1</button>
@@ -22,51 +23,91 @@
         <button type="button" class="key key--sub" data-action="amount#del">←</button>
       </div>
 
-      <%= f.submit "時間に変える", class: "record-btn" %>
+      <!-- 日付選択 -->
+      <div class="date-chips">
+        <button type="button" class="date-chip date-chip--active"
+                data-date="<%= Date.today.to_s %>"
+                data-action="amount#selectDate"
+                data-amount-target="dateBtn">今日</button>
+        <button type="button" class="date-chip"
+                data-date="<%= 1.day.ago.to_date.to_s %>"
+                data-action="amount#selectDate"
+                data-amount-target="dateBtn">昨日</button>
+        <button type="button" class="date-chip"
+                data-date="<%= 2.days.ago.to_date.to_s %>"
+                data-action="amount#selectDate"
+                data-amount-target="dateBtn">一昨日</button>
+      </div>
+
+      <!-- メモ -->
+      <input type="text" name="note" class="record-note"
+             placeholder="何を節約した？（例: 自炊した）"
+             maxlength="40"
+             autocomplete="off">
+
+      <%= f.submit "収入に変える", class: "record-btn" %>
     <% end %>
   </div>
 
   <hr class="sep">
 
+  <!-- 今日の節約収入 -->
   <div class="today">
-    <div class="today-item">
-      <span class="today-num">¥<%= number_with_delimiter(@today_income) %></span>
-      <span class="today-sub">今日の節約収入</span>
-    </div>
-    <div class="today-item">
-      <span class="today-num"><%= @virtual_work_time %></span>
-      <span class="today-sub">取り戻した時間</span>
-    </div>
+    <p class="today-label">今日の節約収入</p>
+    <p class="today-amount">¥<%= number_with_delimiter(@today_income) %></p>
+    <% if @total_minutes > 0 %>
+      <p class="today-eq">＝ <%= @virtual_work_time %>ぶんの労働</p>
+    <% end %>
   </div>
 
-  <% if @lifetime_minutes > 0 %>
-    <hr class="sep">
-
-    <div class="life">
-      <p class="life-above">取り戻した人生</p>
-      <p class="life-num"><%= @lifetime_display %></p>
-      <p class="life-below">
-        累計 ¥<%= number_with_delimiter(@total_income) %>
-        <% if current_user.premium? && @annual_projection.present? %>
-          · 年末まで<%= @annual_projection %>ペース
-        <% end %>
-      </p>
+  <!-- リテンション: 連続記録 + 今週 -->
+  <% if @streak > 0 || @week_income > 0 %>
+    <div class="retention">
+      <% if @streak > 0 %>
+        <div class="retention-item">
+          <span class="retention-num"><%= @streak %></span>
+          <span class="retention-label">日連続</span>
+        </div>
+      <% end %>
+      <% if @week_income > 0 %>
+        <div class="retention-item">
+          <span class="retention-num">¥<%= number_with_delimiter(@week_income) %></span>
+          <span class="retention-label">今週の収入<% if @last_week_income > 0 && @week_income > @last_week_income %> ↑<% end %></span>
+        </div>
+      <% end %>
+      <% if @week_minutes > 0 %>
+        <div class="retention-item">
+          <span class="retention-num"><%= @week_time %></span>
+          <span class="retention-label">今週の労働換算</span>
+        </div>
+      <% end %>
     </div>
+  <% end %>
 
-    <% if current_user.premium? && @total_minutes > 0 %>
-      <%= turbo_frame_tag "ai_suggestion" do %>
-        <%= button_to "この時間の使い方をAIに聞く →", suggest_path,
-              class: "ai-text-link",
-              data: { turbo_frame: "ai_suggestion" } %>
+  <% if !@yesterday_recorded && @total_income > 0 %>
+    <p class="yesterday-nudge">昨日の記録がありません。忘れていませんか？</p>
+  <% end %>
+
+  <hr class="sep">
+
+  <!-- 累計 -->
+  <div class="life">
+    <p class="life-above">これまでの節約収入</p>
+    <p class="life-num life-num--plain">¥<%= number_with_delimiter(@total_income) %></p>
+    <% if @lifetime_minutes > 0 %>
+      <p class="life-eq">＝ <%= @lifetime_display %>ぶんの労働</p>
+      <% if current_user.premium? && @annual_projection.present? %>
+        <p class="life-below">年末まで<%= @annual_projection %>ペース</p>
       <% end %>
     <% end %>
-  <% else %>
-    <hr class="sep">
+  </div>
 
-    <div class="life">
-      <p class="life-above">累計の節約収入</p>
-      <p class="life-num life-num--plain">¥<%= number_with_delimiter(@total_income) %></p>
-    </div>
+  <% if @lifetime_minutes > 0 && current_user.premium? && @total_minutes > 0 %>
+    <%= turbo_frame_tag "ai_suggestion" do %>
+        <%= button_to "この時間で何ができる？ →", suggest_path,
+            class: "ai-text-link",
+            data: { turbo_frame: "ai_suggestion" } %>
+    <% end %>
   <% end %>
 
   <% unless current_user.premium? %>
@@ -77,25 +118,51 @@
 <% else %>
 
   <div class="hero">
-    <p class="hero-kicker">あなたの1時間は、</p>
-    <h2 class="hero-big">いくらですか？</h2>
+    <p class="hero-kicker">気づいていますか？</p>
+    <h2 class="hero-big">節約は、収入だ。</h2>
     <p class="hero-body">
-      節約したお金は「収入」になる。
-      そして、その収入は「自由な時間」に変わる。
+      あなたが働いて得る1時間の給料。<br>
+      節約した金額には、同じ価値がある。
     </p>
 
-    <div class="hero-ex">
-      <p class="hero-ex-line">コンビニ弁当をやめて自炊した</p>
-      <p class="hero-ex-line hero-ex-strong">→ ¥500の収入。25分の自由を、取り戻した。</p>
+    <p class="hero-rate">時給 ¥1,200 の場合</p>
+
+    <div class="hero-examples">
+      <div class="hero-example">
+        <span class="hero-example-scene">コンビニ弁当 → 自炊</span>
+        <span class="hero-example-result">¥500 → <strong>25分</strong>ぶんの収入</span>
+      </div>
+      <div class="hero-example">
+        <span class="hero-example-scene">タクシー → 電車</span>
+        <span class="hero-example-result">¥1,200 → <strong>1時間</strong>ぶんの収入</span>
+      </div>
+      <div class="hero-example">
+        <span class="hero-example-scene">1ヶ月続けると</span>
+        <span class="hero-example-result">→ <strong>まる1日</strong>ぶんの収入</span>
+      </div>
     </div>
 
-    <%= link_to "自分の時間を知る", new_user_registration_path, class: "hero-cta" %>
+    <%= link_to "自分の時間を知る →", new_user_registration_path, class: "hero-cta" %>
 
-    <ul class="hero-notes">
-      <li>節約した金額をサッと入力</li>
-      <li>あなたの時給で「時間」に換算</li>
-      <li>取り戻した人生が見えてくる</li>
-    </ul>
+    <div class="hero-how">
+      <p class="hero-how-title">使い方は、たった3ステップ</p>
+      <div class="hero-steps">
+        <div class="hero-step">
+          <span class="hero-step-num">1</span>
+          <span class="hero-step-text">時給を設定</span>
+        </div>
+        <div class="hero-step">
+          <span class="hero-step-num">2</span>
+          <span class="hero-step-text">節約額を入力</span>
+        </div>
+        <div class="hero-step">
+          <span class="hero-step-num">3</span>
+          <span class="hero-step-text">収入が見える</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="hero-footer">我慢じゃない。意識的な選択だ。</p>
   </div>
 
 <% end %>

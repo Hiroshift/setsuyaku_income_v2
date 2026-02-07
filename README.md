@@ -1,135 +1,107 @@
-# 🌱 節約は収入
+# 節約は収入
 
-![紫　シンプル　アプリ　プレゼンテーション.png](attachment:6bd81945-d632-4369-83a3-ab1511e0dd01:紫_シンプル_アプリ_プレゼンテーション.png)
+「節約した金額」を「収入」として可視化し、  
+それが何分ぶんの**労働**に相当するかを知るアプリ。
 
-## 🚀 プロジェクト概要
+## コンセプト
 
-**「節約は収入」** は、一般的な家計簿アプリではありません。「時間を取り戻す」夢のアプリです。皆さんが貴重な時間を使って得たお給料は、 時に浪費や無意識な消費に消えていきます。
+> 節約は、我慢ではない。意識的な選択だ。
 
-このアプリは、浪費を防ぎ、節約したお金を「収入」そして「取り戻した時間」として換算。
-目標や夢の実現に役立つリソースとして活用できる仕組みを提供します。
+家計簿アプリではありません。  
+「お金を使わなかった」という行為を「収入を得た」と捉え直し、  
+その収入が **自分の労働時間の何分に相当するか** を可視化します。
 
-📌 **デモサイト:** [節約は収入](https://setsuyaku-income.onrender.com/)
+**例：** 時給1,200円の人がコンビニ弁当をやめて自炊 → ¥500の節約 = **25分ぶんの労働**
 
-📌 **ログイン情報:**
+## 主な機能
 
-- **ID**：`s_admin`
-- **PASS**：`s_1537`
+| 機能 | 説明 |
+|---|---|
+| 電卓式入力 | スマホに最適化したワンタップ記録 |
+| 労働時間換算 | 節約額を「何分ぶんの労働か」に自動変換 |
+| 日付選択 | 過去7日間の記録に対応 |
+| メモ機能 | 何を節約したかを記録 |
+| 累計表示 | これまでの節約収入と労働時間の合計 |
+| 連続記録 | 連続記録日数の表示 |
+| 週次サマリー | 今週の節約収入と前週比 |
+| 履歴ページ | 月別集計・具体的な体験換算 |
+| AI提案 | Gemini APIによる「この時間で何ができる？」提案 |
+| 年間予測 | 年末までの節約ペース予測 |
+| PWA対応 | ホーム画面に追加してアプリとして使用可能 |
+| フリーミアム | 無料で基本機能、プレミアムで深い分析 |
 
-## 🎯 開発の背景
-
-### **なぜこのアプリを作ったのか？**
-
-- **無意識化しやすい支出を意識化し、「働いて得た時間」の価値を実感するため**
-- **無駄遣いを減らし、時間とお金を有意義に活用できるよう支援するため**
-- **浪費が目標達成や時間活用に与える影響を具体的に見える化するため**
-
-## 🖥️ 画面イメージ・機能一覧
-
-### **📷 スクリーンショット**
-
-![](https://your-image-url.com/dashboard.png)
-
-## 🔍 競合製品との比較 (Comparison - 比較)
-
-| 特徴 | 節約は収入 | 他の家計簿アプリ |
-| --- | --- | --- |
-| 節約を時給換算 | ✅ 可能 | ❌ なし |
-| 目標管理機能 | 🔜 実装予定 | ❌ 一部サポート |
-| AI提案機能 | 🔜 実装予定 | ❌ なし |
-| コミュニティ機能 | 🔜 実装予定 | ✅ あり |
-| シンプルなUI | ✅ あり | ❌ 複雑 |
-
-## 🛠️ 使用技術
+## 使用技術
 
 | カテゴリ | 技術 |
-| --- | --- |
-| 💻 フロントエンド | HTML / CSS / JavaScript / |
-| 🔙 バックエンド | Ruby on Rails |
-| 🗄️ データベース | PostgreSQL |
-| ☁️ インフラ | Heroku |
-| 🔧 開発ツール | Git / GitHub |
+|---|---|
+| バックエンド | Ruby 3.2.0 / Rails 7.0 |
+| フロントエンド | HTML / CSS / JavaScript / Hotwire (Turbo + Stimulus) |
+| データベース | MySQL（開発） / PostgreSQL（本番） |
+| 認証 | Devise |
+| AI | Google Gemini API |
+| インフラ | Render |
+| テスト | RSpec / FactoryBot / Faker |
+| PWA | Service Worker / Web App Manifest |
 
-| カテゴリ | 技術 |
-| --- | --- |
-| 💻 フロントエンド | HTML / CSS / JavaScript / Bootstrap |
-| 🔙 バックエンド | Ruby on Rails |
-| 🗄️ データベース | PostgreSQL |
-| ☁️ インフラ | Heroku |
-| 🔧 開発ツール | Git / GitHub / Docker |
+## セットアップ
 
-## 📜 ER図・システム構成図
+```bash
+git clone https://github.com/your-username/setsuyaku_income_v2.git
+cd setsuyaku_income_v2
+bundle install
+rails db:create db:migrate
+```
 
-![](https://chatgpt.com/mnt/data/ER.png)
+### 環境変数（`.env` ファイル）
 
-## 📝 使い方
+```
+BASIC_AUTH_USER_SETSUYAKU=your_username
+BASIC_AUTH_PASSWORD_SETSUYAKU=your_password
+GEMINI_API_KEY=your_api_key
+```
 
-### **1. 初回設定 - 自分の時給を入力**
+### サーバー起動
 
-- アプリを利用する前に、自分の時給を設定します。
-- **例:** 時給1,200円 → 600円節約すると0.5時間（30分）の労働時間を取り戻せる
+```bash
+bin/rails server
+```
 
-### **2. 節約金額を記録**
+## テスト
 
-- 不要な出費を控えたら、その金額をアプリに記録します。
-- **例:** 節約「600円」→ 記録
+```bash
+bundle exec rspec
+```
 
-### **3. 節約額を時給換算で表示**
-
-- 節約した金額が「何時間分の労働に相当するか」を自動計算。
-- **例:** 600円節約 → 30分の労働時間に相当（時給が1,200円の場合）
-
-## 🔮 今後の展望
-
-- **「節約と収入」のUI/UXを高め、より直感的で使いやすいアプリへ進化**
-- **節約だけでなく、意識変革を促すアプリをシリーズ化し、多角的な視点で価値提供**
-- **AIアシスタントによる節約アドバイスの提供**
-
-## 👥 コントリビューション
-
-このプロジェクトはオープンソースではありませんが、
-フィードバックやアイデアの提供を歓迎します！
-
-### **貢献の方法**
-
-- **バグ報告:** GitHubのIssueを作成
-- **改善提案:** フィードバックフォームより送信
-- **コラボレーション:** コードやデザインの貢献を検討
-
-✉ **ご意見・お問い合わせ:** hiroshift@example.com
-
-## 📜 ライセンス
-
-MIT License © Hiroshift 2025
-
-# README
+89テスト（モデル・リクエスト・ロジック）
 
 ## テーブル設計
 
-### Usersテーブル
+### Users テーブル
 
-| Column             | Type    | Options                   |
-|--------------------|---------|---------------------------|
-| nickname           | string  | null: false               |
-| email              | string  | null: false, unique: true |
-| encrypted_password | string  | null: false               |
-| hourly_rate        | integer | null: false               |
-| total_income       | integer | default: 0                |
+| Column | Type | Options |
+|---|---|---|
+| nickname | string | null: false |
+| email | string | null: false, unique: true |
+| encrypted_password | string | null: false |
+| hourly_rate | integer | null: false |
+| total_income | integer | default: 0 |
+| premium | boolean | default: false, null: false |
 
 #### Association
-- has_many :recordings
+- has_many :recordings, dependent: :destroy
 
----
+### Recordings テーブル
 
-### Recordingsテーブル
-
-| Column         | Type       | Options                        |
-|----------------|------------|--------------------------------|
-| amount         | integer    | null: false                    |
-| recorded_date  | date       | null: false                    |
-| user           | references | null: false, foreign_key: true |
-| created_at     | datetime   | null: false                    |
-| updated_at     | datetime   | null: false                    |
+| Column | Type | Options |
+|---|---|---|
+| amount | integer | null: false |
+| recorded_date | date | null: false |
+| note | string | |
+| user | references | null: false, foreign_key: true |
 
 #### Association
 - belongs_to :user
+
+## ライセンス
+
+MIT License © 2025-2026

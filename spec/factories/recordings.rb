@@ -1,7 +1,16 @@
 FactoryBot.define do
   factory :recording do
-    amount { 1 } # 金額をデフォルトで1に設定
-    recorded_date { Date.today } # 今日の日付をデフォルトで設定
-    association :user # Userとの関連付けを明示
+    amount        { Faker::Number.between(from: 100, to: 5000) }
+    recorded_date { Date.today }
+    note          { nil }
+    association :user
+
+    trait :with_note do
+      note { %w[自炊した 電車にした コーヒー我慢 サブスク解約].sample }
+    end
+
+    trait :yesterday do
+      recorded_date { Date.yesterday }
+    end
   end
 end

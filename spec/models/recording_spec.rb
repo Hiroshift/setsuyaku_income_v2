@@ -1,52 +1,76 @@
 require 'rails_helper'
 
 RSpec.describe Recording, type: :model do
-  before do
-    @recording = FactoryBot.build(:recording)
-  end
-
-  describe 'Recordingの保存' do
+  describe 'バリデーション' do
     context '保存できる場合' do
-      it 'amount, recorded_date, userが正しく設定されていれば保存できる' do
-        expect(@recording).to be_valid
+      it 'amount, recorded_date, userが正しければ保存できる' do
+        recording = build(:recording)
+        expect(recording).to be_valid
+      end
+
+      it 'noteがなくても保存できる' do
+        recording = build(:recording, note: nil)
+        expect(recording).to be_valid
+      end
+
+      it 'noteがあっても保存できる' do
+        recording = build(:recording, :with_note)
+        expect(recording).to be_valid
       end
     end
 
     context '保存できない場合' do
-      it 'amountが空の場合は保存できない' do
-        @recording.amount = nil
-        expect(@recording).not_to be_valid
-        expect(@recording.errors.full_messages).to include("Amount can't be blank")
+      it 'amountが空では保存できない' do
+        recording = build(:recording, amount: nil)
+        expect(recording).not_to be_valid
       end
 
-      it 'recorded_dateが空の場合は保存できない' do
-        @recording.recorded_date = nil
-        expect(@recording).not_to be_valid
-        expect(@recording.errors.full_messages).to include("Recorded date can't be blank")
+      it 'recorded_dateが空では保存できない' do
+        recording = build(:recording, recorded_date: nil)
+        expect(recording).not_to be_valid
       end
 
-      it 'userが紐付いていない場合は保存できない' do
-        @recording.user = nil
-        expect(@recording).not_to be_valid
-        expect(@recording.errors.full_messages).to include('User must exist')
+      it 'userが紐付いていなければ保存できない' do
+        recording = build(:recording, user: nil)
+        expect(recording).not_to be_valid
+      end
+
+      it 'amountが負の値では保存できない' do
+        recording = build(:recording, amount: -100)
+        expect(recording).not_to be_valid
       end
     end
   end
-  describe '日付変更時のリセット機能' do
-    before do
-      @user = FactoryBot.create(:user) # ユーザーを作成
-    end
 
-    it '日付が変わった場合に今日の収入がリセットされる' do
-      FactoryBot.create(:recording, user: @user, amount: 500, recorded_date: Date.yesterday)
-      today_income = @user.recordings.where(recorded_date: Date.today).sum(:amount)
-      expect(today_income).to eq(0)
-    end
+  describe '日付ごとの集計' do
+    let(:user) { create(:user) }
 
-    it '同じ日付の場合リセットされない' do
-      FactoryBot.create(:recording, user: @user, amount: 500, recorded_date: Date.today)
-      today_income = @user.recordings.where(recorded_date: Date.today).sum(:amount)
+    it '今日の記録のみ集計される' do
+      create(:recording, user: user, amount: 500, recorded_date: Date.today)
+      create(:recording, user: user, amount: 300, recorded_date: Date.yesterday)
+      today_income = user.recordings.where(recorded_date: Date.today).sum(:amount)
       expect(today_income).to eq(500)
+    end
+
+    it '同じ日に複数記録がある場合は合計される' do
+      create(:recording, user: user, amount: 500, recorded_date: Date.today)
+      create(:recording, user: user, amount: 300, recorded_date: Date.today)
+      today_income = user.recordings.where(recorded_date: Date.today).sum(:amount)
+      expect(today_income).to eq(800)
+    end
+  end
+
+  describe 'noteの保存' do
+    let(:user) { create(:user) }
+
+    it 'メモ付きで記録を保存できる' do
+      recording = create(:recording, user: user, amount: 500, note: '自炊した')
+      expect(recording.reload.note).to eq('自炊した')
+    end
+
+    it 'メモなしで記録を保存できる' do
+      recording = create(:recording, user: user, amount: 500, note: nil)
+      expect(recording.reload.note).to be_nil
     end
   end
 end

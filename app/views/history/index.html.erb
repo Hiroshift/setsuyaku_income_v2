@@ -1,15 +1,18 @@
-<!-- 取り戻した人生 -->
+<!-- これまでの節約収入 -->
 <div class="hist-hero">
-  <p class="hist-hero-label">取り戻した人生</p>
-  <p class="hist-hero-value"><%= @lifetime_display %></p>
-  <p class="hist-hero-meta"><%= @days_since_start %>日間で ¥<%= number_with_delimiter(@total_income) %> 節約</p>
+  <p class="hist-hero-label">これまでの節約収入</p>
+  <p class="hist-hero-value">¥<%= number_with_delimiter(@total_income) %></p>
+  <% if @total_minutes > 0 %>
+    <p class="hist-hero-eq">＝ <%= @lifetime_display %>ぶんの労働</p>
+  <% end %>
+  <p class="hist-hero-meta"><%= @days_since_start %>日間の記録</p>
 </div>
 
 <% if current_user.premium? %>
   <!-- これだけの人生でできること（プレミアム） -->
   <% if @life_equivalents.any? %>
     <div class="hist-equiv">
-      <p class="hist-equiv-intro">この時間があれば</p>
+      <p class="hist-equiv-intro">この労働時間ぶんで</p>
       <% @life_equivalents.each do |eq| %>
         <div class="hist-equiv-row">
           <span class="hist-equiv-text"><%= eq[:text] %></span>
@@ -54,9 +57,14 @@
         <div class="hist-row">
           <span class="hist-row-date"><%= r[:date].strftime("%-m/%-d") %></span>
           <span class="hist-row-body">
-            <span class="hist-row-amount">¥<%= number_with_delimiter(r[:amount]) %></span>
-            <span class="hist-row-arrow">→</span>
-            <span class="hist-row-time"><%= r[:time] %></span>
+            <span class="hist-row-main">
+              <span class="hist-row-amount">¥<%= number_with_delimiter(r[:amount]) %></span>
+              <span class="hist-row-arrow">→</span>
+              <span class="hist-row-time"><%= r[:time] %></span>
+            </span>
+            <% if r[:note].present? %>
+              <span class="hist-row-note"><%= r[:note] %></span>
+            <% end %>
           </span>
           <%= button_to recording_path(r[:id]), method: :delete,
                 class: "hist-row-del",

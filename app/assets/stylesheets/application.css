@@ -229,38 +229,133 @@ header {
 
 .record-btn:active { opacity: 0.7; }
 
+/* 日付チップ */
+.date-chips {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 14px 0 10px;
+}
+
+.date-chip {
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: inherit;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.date-chip--active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.date-chip:active { opacity: 0.7; }
+
+/* メモ欄 */
+.record-note {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  margin-bottom: 12px;
+  outline: none;
+  transition: border-color 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.record-note:focus {
+  border-color: var(--accent);
+}
+
+.record-note::placeholder {
+  color: var(--ink-3);
+}
+
 /* ========================================
    今日
    ======================================== */
 
 .today {
-  display: flex;
   padding: 22px 0;
+  text-align: center;
 }
 
-.today-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
+.today-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
 }
 
-.today-item:last-child { text-align: right; }
-
-.today-num {
-  font-size: 1.15rem;
-  font-weight: 700;
+.today-amount {
+  font-size: 1.6rem;
+  font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1;
 }
 
-.today-sub {
-  font-size: 0.68rem;
-  color: var(--ink-3);
+.today-eq {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 8px;
 }
 
 /* ========================================
-   取り戻した人生
+   リテンション（連続記録・今週）
+   ======================================== */
+
+.retention {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 14px 0;
+}
+
+.retention-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.retention-num {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.retention-label {
+  font-size: 0.65rem;
+  color: var(--ink-3);
+}
+
+.yesterday-nudge {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--accent);
+  font-weight: 500;
+  padding: 8px 0;
+}
+
+/* ========================================
+   累計の節約収入
    ======================================== */
 
 .life {
@@ -279,7 +374,6 @@ header {
 .life-num {
   font-size: 2.6rem;
   font-weight: 800;
-  color: var(--accent);
   letter-spacing: -0.04em;
   line-height: 1;
   margin-bottom: 14px;
@@ -287,6 +381,13 @@ header {
 
 .life-num--plain {
   color: var(--ink);
+}
+
+.life-eq {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
 }
 
 .life-below {
@@ -360,27 +461,27 @@ header {
 .ai-retry:active { color: var(--accent); border-color: var(--accent); }
 
 /* ========================================
-   ヒーロー
+   ヒーロー（ランディングページ）
    ======================================== */
 
 .hero {
-  padding: 40px 0 20px;
+  padding: 48px 0 24px;
 }
 
 .hero-kicker {
-  font-size: 1rem;
-  color: var(--ink-2);
+  font-size: 0.82rem;
+  color: var(--ink-3);
   font-weight: 500;
-  margin-bottom: 2px;
+  margin-bottom: 8px;
 }
 
 .hero-big {
-  font-size: 2.4rem;
+  font-size: 1.9rem;
   font-weight: 800;
-  color: var(--accent);
-  letter-spacing: -0.04em;
-  line-height: 1;
-  margin-bottom: 24px;
+  color: var(--ink);
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  margin-bottom: 20px;
 }
 
 .hero-body {
@@ -390,29 +491,55 @@ header {
   margin-bottom: 28px;
 }
 
-.hero-ex {
-  border-left: 2px solid var(--border);
-  padding: 10px 0 10px 14px;
+.hero-rate {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  margin-bottom: 8px;
+}
+
+/* 例セクション */
+.hero-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
   margin-bottom: 32px;
 }
 
-.hero-ex-line {
+.hero-example {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-example:last-child {
+  border-bottom: none;
+}
+
+.hero-example-scene {
   font-size: 0.82rem;
   color: var(--ink-2);
-  line-height: 1.6;
 }
 
-.hero-ex-strong {
-  font-weight: 600;
-  color: var(--ink);
-  margin-top: 2px;
+.hero-example-result {
+  font-size: 0.82rem;
+  color: var(--ink-3);
 }
 
+.hero-example-result strong {
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.92rem;
+}
+
+/* CTA */
 .hero-cta {
   display: block;
   width: 100%;
   padding: 14px;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 700;
   border-radius: var(--radius);
   background: var(--accent);
@@ -422,29 +549,67 @@ header {
   min-height: 48px;
   line-height: 20px;
   transition: opacity 0.12s;
-  margin-bottom: 32px;
+  margin-bottom: 36px;
 }
 
 .hero-cta:active { opacity: 0.7; }
 
-.hero-notes {
-  list-style: none;
+/* 使い方 3ステップ */
+.hero-how {
+  margin-bottom: 28px;
+}
+
+.hero-how-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  margin-bottom: 14px;
+}
+
+.hero-steps {
+  display: flex;
+  gap: 12px;
+}
+
+.hero-step {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 8px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
 }
 
-.hero-notes li {
+.hero-step-num {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(139, 105, 20, 0.08);
+  border-radius: 50%;
+}
+
+.hero-step-text {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* フッターメッセージ */
+.hero-footer {
   font-size: 0.78rem;
   color: var(--ink-3);
-  padding-left: 14px;
-  position: relative;
-}
-
-.hero-notes li::before {
-  content: "–";
-  position: absolute;
-  left: 0;
+  text-align: center;
+  font-style: italic;
 }
 
 /* ========================================
@@ -903,11 +1068,19 @@ header {
 }
 
 .hist-hero-value {
-  font-size: 2.8rem;
+  font-size: 2.4rem;
   font-weight: 800;
-  color: var(--accent);
+  color: var(--ink);
   letter-spacing: -0.04em;
   line-height: 1;
+  margin-bottom: 8px;
+}
+
+.hist-hero-eq {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
   margin-bottom: 12px;
 }
 
@@ -1034,8 +1207,22 @@ header {
 .hist-row-body {
   flex: 1;
   display: flex;
-  align-items: baseline;
+  flex-direction: column;
+  gap: 2px;
   min-width: 0;
+}
+
+.hist-row-main {
+  display: flex;
+  align-items: baseline;
+}
+
+.hist-row-note {
+  font-size: 0.72rem;
+  color: var(--ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .hist-row-amount {
@@ -1082,6 +1269,294 @@ header {
 .hist-row-del:active {
   color: var(--red);
   background: var(--red-bg);
+}
+
+/* ========================================
+   インストールバナー
+   ======================================== */
+
+.install-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.install-banner--visible {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.install-banner-inner {
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-radius: 16px 16px 0 0;
+  padding: 24px 20px calc(20px + var(--safe-bottom));
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+}
+
+.install-banner-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.install-banner-body {
+  font-size: 0.78rem;
+  color: var(--ink-2);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+/* ── iOS用ステップ ── */
+
+.install-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.install-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: left;
+  padding: 12px 14px;
+  background: var(--bg);
+  border-radius: var(--radius);
+}
+
+.install-step-num {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(139, 105, 20, 0.1);
+  border-radius: 50%;
+  margin-top: 1px;
+}
+
+.install-step-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.install-step-label {
+  font-size: 0.82rem;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+/* Safari バー再現 */
+.install-safari-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 8px 12px;
+  background: #f2f2f7;
+  border-radius: 10px;
+  border: 1px solid #d1d1d6;
+}
+
+.install-safari-icon {
+  font-size: 0.82rem;
+  color: #8e8e93;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.install-safari-icon--highlight {
+  color: #007aff;
+  position: relative;
+}
+
+.install-safari-icon--highlight::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: installPulse 1.5s ease-in-out infinite;
+}
+
+/* メニュー再現 */
+.install-menu-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #d1d1d6;
+}
+
+.install-menu-item {
+  padding: 9px 12px;
+  font-size: 0.78rem;
+  background: #fff;
+  border-bottom: 1px solid #e5e5ea;
+  text-align: left;
+}
+
+.install-menu-item:last-child {
+  border-bottom: none;
+}
+
+.install-menu-item--dim {
+  color: #c7c7cc;
+}
+
+.install-menu-item--target {
+  color: var(--ink);
+  font-weight: 600;
+  background: rgba(139, 105, 20, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.install-menu-plus {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.install-menu-scroll-hint {
+  padding: 4px 12px;
+  font-size: 0.68rem;
+  color: var(--accent);
+  font-weight: 600;
+  background: #fff;
+  text-align: center;
+  border-bottom: 1px solid #e5e5ea;
+  letter-spacing: 0.02em;
+}
+
+/* ── Android用ボタン ── */
+
+.install-btn {
+  width: 100%;
+  max-width: 280px;
+  padding: 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: opacity 0.12s;
+}
+
+.install-btn:active { opacity: 0.7; }
+
+/* ── 閉じるボタン ── */
+
+.install-dismiss {
+  background: none;
+  border: none;
+  font-size: 0.78rem;
+  color: var(--ink-3);
+  cursor: pointer;
+  padding: 8px 16px;
+  font-family: inherit;
+}
+
+.install-dismiss:active { color: var(--ink-2); }
+
+/* パルスアニメーション */
+@keyframes installPulse {
+  0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
+  50% { opacity: 0.5; transform: translateX(-50%) scale(1.5); }
+}
+
+/* ========================================
+   PWA スタンドアロン対応
+   ======================================== */
+
+/* ホーム画面から起動した場合、ヘッダーに上部余白を追加 */
+@media all and (display-mode: standalone) {
+  header {
+    padding-top: var(--safe-top);
+  }
+
+  .page-body {
+    padding-bottom: calc(20px + var(--safe-bottom));
+  }
+}
+
+/* ========================================
+   レスポンシブ微調整
+   ======================================== */
+
+/* 小さいスマホ（iPhone SE など） */
+@media (max-width: 374px) {
+  .hero-big {
+    font-size: 1.6rem;
+  }
+
+  .hero-steps {
+    gap: 6px;
+  }
+
+  .hero-step {
+    padding: 10px 4px;
+  }
+
+  .hero-step-text {
+    font-size: 0.65rem;
+  }
+
+  .key {
+    font-size: 1.1rem;
+    min-height: 42px;
+  }
+
+  .today-amount {
+    font-size: 1.3rem;
+  }
+
+  .life-num {
+    font-size: 2rem;
+  }
+
+  .hist-hero-value {
+    font-size: 2rem;
+  }
+}
+
+/* タブレット以上（念のため） */
+@media (min-width: 600px) {
+  .page-body {
+    max-width: 480px;
+    margin: 0 auto;
+  }
 }
 
 /* ========================================

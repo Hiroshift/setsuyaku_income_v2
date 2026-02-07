@@ -6,18 +6,38 @@ class HomeController < ApplicationController
     today = Date.today
 
     if user_signed_in?
+      recordings = current_user.recordings
+
       # --- 今日 ---
-      @today_income = current_user.recordings.where(recorded_date: today).sum(:amount)
+      @today_income = recordings.where(recorded_date: today).sum(:amount)
       @total_minutes = calculate_minutes(@today_income)
       @virtual_work_time = format_time(@total_minutes)
 
+      # --- 昨日 ---
+      yesterday = today - 1
+      @yesterday_income = recordings.where(recorded_date: yesterday).sum(:amount)
+      @yesterday_recorded = @yesterday_income > 0
+
+      # --- 連続記録 ---
+      @streak = calculate_streak(recordings, today)
+
+      # --- 今週のサマリー ---
+      week_start = today.beginning_of_week(:monday)
+      @week_income = recordings.where(recorded_date: week_start..today).sum(:amount)
+      @week_minutes = calculate_minutes(@week_income)
+      @week_time = format_time(@week_minutes)
+
+      last_week_start = week_start - 7
+      last_week_end = week_start - 1
+      @last_week_income = recordings.where(recorded_date: last_week_start..last_week_end).sum(:amount)
+
       # --- 累計 ---
-      @total_income = current_user.recordings.sum(:amount)
+      @total_income = recordings.sum(:amount)
       @lifetime_minutes = calculate_minutes(@total_income)
       @lifetime_display = format_life_time(@lifetime_minutes)
 
       # --- 年間プロジェクション ---
-      first_record = current_user.recordings.minimum(:recorded_date)
+      first_record = recordings.minimum(:recorded_date)
       if first_record && @total_income > 0
         days_active = [(today - first_record).to_i, 1].max
         daily_avg_income = @total_income.to_f / days_active
@@ -38,13 +58,17 @@ class HomeController < ApplicationController
 
   def create
     amount = params[:amount].to_i
+    recorded_date = parse_date(params[:recorded_date])
+    note = params[:note].presence&.strip
+
     if amount.positive?
-      if current_user.recordings.create(amount: amount, recorded_date: Date.today)
-        message = "¥#{amount.to_fs(:delimited)}の節約収入を獲得！"
+      if current_user.recordings.create(amount: amount, recorded_date: recorded_date, note: note)
+        message = "¥#{amount.to_fs(:delimited)}の節約収入"
         if current_user.hourly_rate.positive?
           minutes = (amount.to_f / current_user.hourly_rate * 60).round
-          message += " （#{format_time(minutes)}の自由を取り戻しました）"
+          message += " ＝ #{format_time(minutes)}ぶんの労働"
         end
+        message += "（#{note}）" if note.present?
         flash[:notice] = message
       else
         flash[:alert] = '記録に失敗しました。もう一度お試しください。'
@@ -84,5 +108,34 @@ class HomeController < ApplicationController
     end
 
     render partial: "home/ai_result", locals: { suggestion: @suggestion, minutes: minutes }
+  end
+
+  private
+
+  def calculate_streak(recordings, today)
+    # 今日の記録がなければ昨日から数える
+    check_date = recordings.where(recorded_date: today).exists? ? today : today - 1
+    streak = 0
+
+    loop do
+      if recordings.where(recorded_date: check_date).exists?
+        streak += 1
+        check_date -= 1
+      else
+        break
+      end
+    end
+
+    streak
+  end
+
+  def parse_date(date_str)
+    date = Date.parse(date_str) rescue nil
+    # 未来の日付や7日以上前は許可しない
+    if date && date <= Date.today && date >= 7.days.ago.to_date
+      date
+    else
+      Date.today
+    end
   end
 end

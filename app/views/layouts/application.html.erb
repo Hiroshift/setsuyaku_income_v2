@@ -8,6 +8,21 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="節約は収入">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+
+    <!-- OGP -->
+    <meta property="og:title" content="節約は収入">
+    <meta property="og:description" content="節約したお金は「収入」になる。その収入は、あなたの労働時間に換算できる。">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/icon-512.png">
+    <meta property="og:locale" content="ja_JP">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="節約は収入">
+    <meta name="twitter:description" content="あなたの節約は、何分の労働に相当する？">
+
     <title>節約は収入</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -62,5 +77,10 @@
         &copy; <%= Date.today.year %> 節約は収入
       </footer>
     </div>
+
+    <!-- インストールバナー（ログイン済みユーザーのみ） -->
+    <% if user_signed_in? %>
+      <%= render "shared/install_banner" %>
+    <% end %>
   </body>
 </html>

@@ -11,7 +11,7 @@ class User < ApplicationRecord
   end
 
   validates :nickname, presence: true, length: { maximum: 50 }
-  validates :hourly_rate, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :hourly_rate, presence: true, numericality: { greater_than: 0 }
   # パスワードのバリデーションを条件付きに設定
   validates :password, format: {
     with: /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/,

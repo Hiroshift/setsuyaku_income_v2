@@ -46,7 +46,8 @@ class HistoryController < ApplicationController
         id: r.id,
         date: r.recorded_date,
         amount: r.amount,
-        time: format_time(minutes)
+        time: format_time(minutes),
+        note: r.note
       }
     end
   end
@@ -75,7 +76,7 @@ class HistoryController < ApplicationController
       { min: 120,   unit: 120,  text: "映画鑑賞",              per: "1本約2時間" },
       { min: 180,   unit: 180,  text: "読書（文庫本1冊）",      per: "1冊約3時間" },
       { min: 360,   unit: 360,  text: "日帰り小旅行",           per: "1回約6時間" },
-      { min: 1440,  unit: 1440, text: "まる1日の完全な自由",     per: "24時間" },
+      { min: 1440,  unit: 1440, text: "まる1日ぶん",              per: "24時間" },
     ]
 
     results = []

@@ -1,1 +1,1 @@
-# このファイルは将来的に使用される可能性があります。
+# requestスペック (spec/requests/home_spec.rb) に移行済み

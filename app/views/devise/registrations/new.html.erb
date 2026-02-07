@@ -37,7 +37,7 @@
 
       <div data-wage-target="hourlyGroup">
         <div class="field-group">
-          <%= f.number_field :hourly_rate, class: "field-input", placeholder: "例）1200", min: 0, inputmode: "numeric", data: { wage_target: "hourlyInput" } %>
+          <%= f.number_field :hourly_rate, class: "field-input", placeholder: "例）1200", min: 1, required: true, inputmode: "numeric", data: { wage_target: "hourlyInput" } %>
         </div>
       </div>
 

@@ -16,32 +16,32 @@ RSpec.describe User, type: :model do
       it 'nicknameが空では登録できない' do
         @user.nickname = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("Nickname can't be blank")
+        expect(@user.errors.full_messages).to include("ニックネームを入力してください")
       end
 
       it 'emailが空では登録できない' do
         @user.email = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("Email can't be blank")
+        expect(@user.errors.full_messages).to include("メールアドレスを入力してください")
       end
 
       it 'passwordが空では登録できない' do
         @user.password = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password can't be blank")
+        expect(@user.errors.full_messages).to include("パスワードを入力してください")
       end
 
       it 'passwordとpassword_confirmationが不一致では登録できない' do
-        @user.password = '123456'
-        @user.password_confirmation = '1234567'
+        @user.password = 'abc123'
+        @user.password_confirmation = 'abc124'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("パスワード（確認）がパスワードと一致しません")
       end
 
       it 'nicknameが51文字以上では登録できない' do
         @user.nickname = 'a' * 51
         @user.valid?
-        expect(@user.errors.full_messages).to include('Nickname is too long (maximum is 50 characters)')
+        expect(@user.errors.full_messages).to include('ニックネームは50文字以内にしてください')
       end
 
       it '重複したemailが存在する場合は登録できない' do
@@ -49,39 +49,45 @@ RSpec.describe User, type: :model do
         another_user = FactoryBot.build(:user)
         another_user.email = @user.email
         another_user.valid?
-        expect(another_user.errors.full_messages).to include('Email has already been taken')
+        expect(another_user.errors.full_messages).to include('メールアドレスはすでに登録されています')
       end
 
       it 'emailは@を含まないと登録できない' do
         @user.email = 'testmail'
         @user.valid?
-        expect(@user.errors.full_messages).to include('Email is invalid')
+        expect(@user.errors.full_messages).to include('メールアドレスの形式が正しくありません')
       end
 
       it 'passwordが5文字以下では登録できない' do
         @user.password = '00000'
         @user.password_confirmation = '00000'
         @user.valid?
-        expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+        expect(@user.errors.full_messages).to include('パスワードは6文字以上にしてください')
       end
 
       it 'passwordが129文字以上では登録できない' do
         @user.password = 'a' * 129
         @user.password_confirmation = @user.password
         @user.valid?
-        expect(@user.errors.full_messages).to include('Password is too long (maximum is 128 characters)')
+        expect(@user.errors.full_messages).to include('パスワードは128文字以内にしてください')
       end
 
       it 'hourly_rateが空では登録できない' do
         @user.hourly_rate = nil
         @user.valid?
-        expect(@user.errors.full_messages).to include("Hourly rate can't be blank")
+        expect(@user.errors.full_messages).to include("時給を入力してください")
+      end
+
+      it 'hourly_rateが0では登録できない（時給0円ではアプリが機能しない）' do
+        @user.hourly_rate = 0
+        @user.valid?
+        expect(@user.errors.full_messages).to include('時給は1円以上で入力してください')
       end
 
       it 'hourly_rateが負の値では登録できない' do
         @user.hourly_rate = -1
         @user.valid?
-        expect(@user.errors.full_messages).to include('Hourly rate must be greater than or equal to 0')
+        expect(@user.errors.full_messages).to include('時給は1円以上で入力してください')
       end
     end
 
@@ -104,7 +110,7 @@ RSpec.describe User, type: :model do
         @user.password = '12345'
         @user.password_confirmation = '12345'
         @user.valid?
-        expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+        expect(@user.errors.full_messages).to include('パスワードは6文字以上にしてください')
       end
 
       it '新しいパスワードが半角英数字混合でない場合は更新できない' do
@@ -112,7 +118,7 @@ RSpec.describe User, type: :model do
         @user.password = 'abcdef'
         @user.password_confirmation = 'abcdef'
         @user.valid?
-        expect(@user.errors.full_messages).to include('Password is invalid. Include both letters and numbers')
+        expect(@user.errors.full_messages).to include('パスワードは英字と数字の両方を含めてください')
       end
 
       it 'パスワード確認が一致しない場合は更新できない' do
@@ -120,7 +126,7 @@ RSpec.describe User, type: :model do
         @user.password = 'new123'
         @user.password_confirmation = 'new124'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("パスワード（確認）がパスワードと一致しません")
       end
     end
   end
@@ -128,7 +134,7 @@ end
 
 RSpec.describe User, type: :model do
   before do
-    @user = FactoryBot.create(:user) # 実際にデータベースに保存されるユーザー
+    @user = FactoryBot.create(:user)
   end
 
   describe 'ユーザーの削除' do
@@ -138,7 +144,7 @@ RSpec.describe User, type: :model do
       end
 
       it '関連するrecordingsも削除されること' do
-        FactoryBot.create(:recording, user: @user) # ユーザーに紐付いたRecording
+        FactoryBot.create(:recording, user: @user)
         expect { @user.destroy }.to change { Recording.count }.by(-1)
       end
     end
