@@ -7,6 +7,9 @@ class ApplicationController < ActionController::Base
   def basic_auth
     return if Rails.env.test?
 
+    # ヘルスチェック用エンドポイントはBasic認証をスキップ（UptimeRobot等の監視用）
+    return if controller_name == 'health'
+
     # PWAスタンドアロンモードからのアクセスはBasic認証をスキップ
     # （Deviseのログイン認証で保護される）
     return if pwa_standalone_request?

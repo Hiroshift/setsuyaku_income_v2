@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   post "suggest", to: "home#suggest"
   get "history", to: "history#index"
   delete "recordings/:id", to: "history#destroy", as: :recording
+  get "health", to: "health#show"
 end
