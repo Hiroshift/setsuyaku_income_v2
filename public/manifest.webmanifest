@@ -2,7 +2,7 @@
   "name": "節約は収入",
   "short_name": "節約は収入",
   "description": "節約を収入として可視化し、取り戻した人生の時間を知る",
-  "start_url": "/",
+  "start_url": "/?mode=standalone",
   "display": "standalone",
   "background_color": "#fafaf8",
   "theme_color": "#fafaf8",
